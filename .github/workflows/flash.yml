@@ -28,7 +28,7 @@ jobs:
         with:
           name: moonshine-openfl-language-client-flash
           path: |
-            bin/flash/bin/
+            bin/flash/*/*.swc
             src/
             README.md
             LICENSE
