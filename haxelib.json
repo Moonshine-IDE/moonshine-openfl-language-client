@@ -1,5 +1,5 @@
 {
-  "name": "openfl-language-client",
+  "name": "moonshine-openfl-language-client",
   "url": "https://github.com/Moonshine-IDE/moonshine-openfl-language-client",
   "license": "MIT",
   "tags": ["openfl", "moonshine", "language-server-protocol"],
