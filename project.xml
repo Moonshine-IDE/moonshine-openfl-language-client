@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<project>
+	
+	<meta title="moonshine-openfl-language-client" package="moonshine.openfl-language-client" version="1.0.0" company="Prominic.NET" />
+	<app file="moonshine-openfl-language-client" />
+
+	<window allow-high-dpi="true"/>
+	<window fps="60"/>
+	
+	<source path="src" />
+	
+	<haxelib name="openfl" />
+	<haxelib name="actuate" />
+	<haxelib name="feathersui" />
+	<haxelib name="markdown-openfl-textfield" />
+
+	<template path="templates" if="flash"/>
+	<template path="templates" if="air"/>
+
+	<haxeflag name="--macro" value="include('moonshine.lsp')"/>
+</project>

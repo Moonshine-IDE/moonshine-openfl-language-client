@@ -1,0 +1,14 @@
+{
+	"name": "openfl-language-client",
+	"url" : "https://github.com/Moonshine-IDE/moonshine-openfl-language-client",
+	"license": "MIT",
+	"tags": ["openfl", "moonshine", "language-server-protocol"],
+	"description": "An implementation of the editor/IDE side of the language server protocol",
+	"version": "1.0.0-alpha.1",
+	"releasenote": "Initial release.",
+	"contributors": ["bowlerhat"],
+	"classPath": "src",
+	"dependencies": {
+		"openfl": ""
+	}
+}
