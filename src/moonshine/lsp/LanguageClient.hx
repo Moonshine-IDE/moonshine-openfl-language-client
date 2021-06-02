@@ -569,7 +569,7 @@ class LanguageClient extends EventDispatcher {
 				remainingSize -= currentSize;
 				_output.writeUTFBytes(current);
 			}
-		} catch (e) {
+		} catch (e:Any) {
 			// if there's something wrong with the IDataOutput, we can't
 			// send a final shutdown request
 			stop();
@@ -614,7 +614,7 @@ class LanguageClient extends EventDispatcher {
 
 		try {
 			_output.writeUTFBytes(message);
-		} catch (e) {
+		} catch (e:Any) {
 			// if we're already trying to shut down, don't do it again
 			if (method != METHOD_SHUTDOWN) {
 				// if there's something wrong with the IDataOutput, we can't
@@ -667,7 +667,7 @@ class LanguageClient extends EventDispatcher {
 
 		try {
 			_output.writeUTFBytes(message);
-		} catch (error) {
+		} catch (e:Any) {
 			// if there's something wrong with the IDataOutput, we can't
 			// send a final shutdown request
 			stop();
@@ -878,7 +878,7 @@ class LanguageClient extends EventDispatcher {
 				trace("<<<", message);
 			}
 			object = Json.parse(message);
-		} catch (error) {
+		} catch (e:Any) {
 			trace("Error: Language client failed to parse JSON.");
 			return;
 		}
