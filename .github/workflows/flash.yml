@@ -24,3 +24,12 @@ jobs:
           haxelib dev openfl-language-client $GITHUB_WORKSPACE
       - name: Build Flash .swc library
         run: haxelib run openfl build flash -debug
+      - uses: actions/upload-artifact@v2
+        with:
+          name: moonshine-openfl-language-client-flash
+          path: |
+            bin/flash/bin/
+            src/
+            README.md
+            LICENSE
+          if-no-files-found: error
