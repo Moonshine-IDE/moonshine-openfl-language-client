@@ -90,11 +90,10 @@ class LanguageClient extends EventDispatcher {
 	private static final METHOD_TELEMETRY__EVENT:String = "telemetry/event";
 	private static final METHOD_COMPLETION_ITEM__RESOLVE:String = "completionItem/resolve";
 
-	public function new(languageId:String, initializationOptions:Any, input:IDataInput, inputDispatcher:IEventDispatcher, inputEventType:String,
-			output:IDataOutput, outputFlushCallback:() -> Void) {
+	public function new(languageId:String, input:IDataInput, inputDispatcher:IEventDispatcher, inputEventType:String, output:IDataOutput,
+			?outputFlushCallback:() -> Void) {
 		super();
 		_languageId = languageId;
-		_initializationOptions = initializationOptions;
 		_input = input;
 		_inputDispatcher = inputDispatcher;
 		_inputEventType = inputEventType;
@@ -157,8 +156,6 @@ class LanguageClient extends EventDispatcher {
 		return _serverCapabilities;
 	}
 
-	private var _initializationOptions:Any;
-
 	private var _input:IDataInput;
 	private var _inputDispatcher:IEventDispatcher;
 	private var _inputEventType:String;
@@ -220,7 +217,7 @@ class LanguageClient extends EventDispatcher {
 	private var _uriSchemes:Array<String> = [];
 	private var _workspaceFolders:Array<WorkspaceFolder> = [];
 
-	public function start():Void {
+	public function start(?initializationOptions:Any):Void {
 		if (_calledStart) {
 			return;
 		}
@@ -228,7 +225,7 @@ class LanguageClient extends EventDispatcher {
 
 		_inputDispatcher.addEventListener(_inputEventType, languageClient_input_onData);
 
-		sendInitialize();
+		sendInitialize(initializationOptions);
 	}
 
 	public function addWorkspaceFolder(workspaceFolder:WorkspaceFolder):Void {
@@ -693,13 +690,13 @@ class LanguageClient extends EventDispatcher {
 		#end
 	}
 
-	private function sendInitialize():Void {
+	private function sendInitialize(initializationOptions:Any):Void {
 		var mainWorkspaceFolder = _workspaceFolders.length > 0 ? _workspaceFolders[0] : null;
 		var params = {
 			rootUri: (mainWorkspaceFolder != null) ? mainWorkspaceFolder.uri : null,
 			rootPath: (mainWorkspaceFolder != null) ? uriToFilePath(mainWorkspaceFolder.uri) : null,
 			workspaceFolders: _workspaceFolders.map(workspaceFolder -> workspaceFolder.serialize()),
-			initializationOptions: _initializationOptions,
+			initializationOptions: initializationOptions,
 			capabilities: {
 				workspace: {
 					applyEdit: true,
