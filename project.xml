@@ -12,7 +12,6 @@
 	<haxelib name="openfl" />
 
 	<template path="templates" if="flash"/>
-	<template path="templates" if="air"/>
 
 	<haxeflag name="--macro" value="include('moonshine.lsp')"/>
 </project>
