@@ -10,9 +10,6 @@
 	<source path="src" />
 	
 	<haxelib name="openfl" />
-	<haxelib name="actuate" />
-	<haxelib name="feathersui" />
-	<haxelib name="markdown-openfl-textfield" />
 
 	<template path="templates" if="flash"/>
 	<template path="templates" if="air"/>
