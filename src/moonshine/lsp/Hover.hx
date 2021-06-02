@@ -39,12 +39,12 @@ class Hover {
 		if (Reflect.hasField(original, FIELD_RANGE)) {
 			vo.range = Range.parse(Reflect.field(original, FIELD_RANGE));
 		}
-		if (Std.isOfType(original.contents, String)) {
+		if ((original.contents is String)) {
 			vo.contents = original.contents;
-		} else if (Std.isOfType(original.contents, Array)) {
+		} else if ((original.contents is Array)) {
 			var contents:Array<Dynamic> = [];
 			for (item in cast(original.contents, Array<Dynamic>)) {
-				if (Std.isOfType(item, String)) {
+				if ((item is String)) {
 					contents.push(item);
 				} else if (Reflect.hasField(original.contents, "language") && Reflect.hasField(original.contents, "value")) {
 					contents.push(item); // MarkedString
