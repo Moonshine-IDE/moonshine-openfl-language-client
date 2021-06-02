@@ -1343,11 +1343,11 @@ class LanguageClient extends EventDispatcher {
 		var firstItem = resultArray[0];
 		if (Reflect.hasField(firstItem, FIELD_LOCATION)) {
 			var symbolInformation = resultArray.map(jsonResult -> SymbolInformation.parse(jsonResult));
-			callback(symbolInformation);
+			callback(cast symbolInformation);
 			return;
 		}
 		var documentSymbols = resultArray.map(jsonResult -> DocumentSymbol.parse(jsonResult));
-		callback(documentSymbols);
+		callback(cast documentSymbols);
 	}
 
 	private function handleWorkspaceSymbolsResponse(result:Any, params:WorkspaceSymbolParams, callback:(Null<Array<SymbolInformation>>) -> Void):Void {
