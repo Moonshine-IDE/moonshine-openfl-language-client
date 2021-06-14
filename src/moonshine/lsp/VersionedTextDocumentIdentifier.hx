@@ -26,28 +26,11 @@ package moonshine.lsp;
 	 
 	@see https://microsoft.github.io/language-server-protocol/specification#versionedtextdocumentidentifier
 **/
-class VersionedTextDocumentIdentifier extends TextDocumentIdentifier {
+typedef VersionedTextDocumentIdentifier = {
+	> TextDocumentIdentifier,
+
 	/**
 	 * The version number of this document.
 	 */
-	public var version:Int;
-
-	public function new(uri:String = null, version:Int = 0) {
-		super(uri);
-		this.version = version;
-	}
-
-	public static function parse(original:Dynamic):VersionedTextDocumentIdentifier {
-		var vo = new VersionedTextDocumentIdentifier();
-		vo.uri = original.uri;
-		vo.version = original.version;
-		return vo;
-	}
-
-	override public function serialize():Any {
-		return {
-			uri: uri,
-			version: version,
-		};
-	}
+	version:Int,
 }

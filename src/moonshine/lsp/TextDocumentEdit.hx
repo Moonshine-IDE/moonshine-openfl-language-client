@@ -42,7 +42,7 @@ class TextDocumentEdit {
 
 	public static function parse(original:Dynamic):TextDocumentEdit {
 		var vo = new TextDocumentEdit();
-		vo.textDocument = TextDocumentIdentifier.parse(original.textDocument);
+		vo.textDocument = (original.textDocument : TextDocumentIdentifier);
 		var edits:Array<TextEdit> = [];
 		for (edit in cast(original.edits, Array<Dynamic>)) {
 			edits.push(TextEdit.parse(edit));

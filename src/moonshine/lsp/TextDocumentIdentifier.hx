@@ -26,26 +26,9 @@ package moonshine.lsp;
 	 
 	@see https://microsoft.github.io/language-server-protocol/specification#textdocumentidentifier
 **/
-@:structInit
-class TextDocumentIdentifier {
+typedef TextDocumentIdentifier = {
 	/**
 		The text document's URI.
 	**/
-	public var uri:String;
-
-	public function new(uri:String = null) {
-		this.uri = uri;
-	}
-
-	public static function parse(original:Dynamic):TextDocumentIdentifier {
-		var vo = new TextDocumentIdentifier();
-		vo.uri = original.uri;
-		return vo;
-	}
-
-	public function serialize():Any {
-		return {
-			uri: uri
-		};
-	}
+	uri:String,
 }
