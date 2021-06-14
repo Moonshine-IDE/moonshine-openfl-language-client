@@ -26,6 +26,7 @@ package moonshine.lsp;
 	 
 	@see https://microsoft.github.io/language-server-protocol/specification#workspaceedit
 **/
+@:structInit
 class WorkspaceEdit {
 	private static final FIELD_CHANGES:String = "changes";
 	private static final FIELD_DOCUMENT_CHANGES:String = "documentChanges";

@@ -26,6 +26,7 @@ package moonshine.lsp;
 	 
 	@see https://microsoft.github.io/language-server-protocol/specification#textDocument_hover
 **/
+@:structInit
 class Hover {
 	private static final FIELD_RANGE:String = "range";
 

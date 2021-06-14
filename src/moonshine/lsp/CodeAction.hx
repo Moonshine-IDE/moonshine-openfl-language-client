@@ -26,6 +26,7 @@ package moonshine.lsp;
 	 
 	@see https://microsoft.github.io/language-server-protocol/specification#textDocument_codeAction
 **/
+@:structInit
 class CodeAction {
 	private static final FIELD_DIAGNOSTICS:String = "diagnostics";
 	private static final FIELD_EDIT:String = "edit";

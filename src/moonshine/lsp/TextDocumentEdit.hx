@@ -26,6 +26,7 @@ package moonshine.lsp;
 	 
 	@see https://microsoft.github.io/language-server-protocol/specification#textdocumentedit
 **/
+@:structInit
 class TextDocumentEdit {
 	/**
 		The text document to change.

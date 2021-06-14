@@ -26,6 +26,7 @@ package moonshine.lsp;
 	 
 	@see https://microsoft.github.io/language-server-protocol/specification#locationLink
 **/
+@:structInit
 class LocationLink {
 	public var originSelectionRange:Null<Range>;
 	public var targetUri:String;

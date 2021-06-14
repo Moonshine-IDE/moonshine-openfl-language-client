@@ -26,6 +26,7 @@ package moonshine.lsp;
 	 
 	@see https://microsoft.github.io/language-server-protocol/specification#textDocument_documentSymbol
 **/
+@:structInit
 class DocumentSymbol {
 	public static final FIELD_CHILDREN:String = "children";
 

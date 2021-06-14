@@ -26,6 +26,7 @@ package moonshine.lsp;
 	 
 	@see https://microsoft.github.io/language-server-protocol/specification#markupContent
 **/
+@:structInit
 class MarkupContent {
 	/**
 		The type of the Markup

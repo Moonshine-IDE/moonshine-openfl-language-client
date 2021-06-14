@@ -26,6 +26,7 @@ package moonshine.lsp;
 	 
 	@see https://microsoft.github.io/language-server-protocol/specification#textDocument_completion
 **/
+@:structInit
 class CompletionList {
 	/**
 		This list it not complete. Further typing should result in recomputing

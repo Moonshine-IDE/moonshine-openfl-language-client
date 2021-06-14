@@ -26,6 +26,7 @@ package moonshine.lsp;
 	 
 	@see https://microsoft.github.io/language-server-protocol/specification#textDocument_signatureHelp
 **/
+@:structInit
 class SignatureInformation {
 	public var label:String = "";
 	public var parameters:Array<ParameterInformation>;

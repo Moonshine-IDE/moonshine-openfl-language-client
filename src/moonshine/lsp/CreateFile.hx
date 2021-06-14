@@ -26,6 +26,7 @@ package moonshine.lsp;
 
 	@see https://microsoft.github.io/language-server-protocol/specification#file-resource-changes
 **/
+@:structInit
 class CreateFile {
 	public static final KIND:String = "create";
 

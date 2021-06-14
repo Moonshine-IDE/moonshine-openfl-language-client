@@ -26,6 +26,7 @@ package moonshine.lsp;
 	 
 	@see https://microsoft.github.io/language-server-protocol/specification#location
 **/
+@:structInit
 class Location {
 	public var uri:String;
 	public var range:Range;

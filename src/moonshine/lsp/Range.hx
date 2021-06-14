@@ -26,6 +26,7 @@ package moonshine.lsp;
 	 
 	@see https://microsoft.github.io/language-server-protocol/specification#range
 **/
+@:structInit
 class Range {
 	/**
 	 * The range's start position.

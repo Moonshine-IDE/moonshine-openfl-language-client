@@ -26,6 +26,7 @@ package moonshine.lsp;
 	 
 	@see https://microsoft.github.io/language-server-protocol/specification#textDocument_signatureHelp
 **/
+@:structInit
 class SignatureHelp {
 	public var activeSignature:Int = -1;
 	public var activeParameter:Int = -1;

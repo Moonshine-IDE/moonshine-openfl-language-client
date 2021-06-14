@@ -26,6 +26,7 @@ package moonshine.lsp;
 	 
 	@see https://microsoft.github.io/language-server-protocol/specification#textDocument_completion
 **/
+@:structInit
 class CompletionItem {
 	private static final FIELD_COMMAND:String = "command";
 	private static final FIELD_IS_INCOMPLETE:String = "isIncomplete";

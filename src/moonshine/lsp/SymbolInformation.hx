@@ -27,6 +27,7 @@ package moonshine.lsp;
 	@see https://microsoft.github.io/language-server-protocol/specification#textDocument_documentSymbol
 	@see https://microsoft.github.io/language-server-protocol/specification#workspace_symbol
 **/
+@:structInit
 class SymbolInformation {
 	public var name:String;
 	public var containerName:String;

@@ -26,6 +26,7 @@ package moonshine.lsp;
 	 
 	@see https://microsoft.github.io/language-server-protocol/specification#textedit
 **/
+@:structInit
 class TextEdit {
 	/**
 		The range of the text document to be manipulated. To insert text into a

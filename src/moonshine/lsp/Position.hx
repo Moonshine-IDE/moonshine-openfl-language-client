@@ -26,6 +26,7 @@ package moonshine.lsp;
 	 
 	@see https://microsoft.github.io/language-server-protocol/specification#position
 **/
+@:structInit
 class Position {
 	/**
 		Line offset in a document (zero-based).

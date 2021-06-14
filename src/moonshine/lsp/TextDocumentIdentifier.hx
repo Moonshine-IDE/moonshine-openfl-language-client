@@ -26,6 +26,7 @@ package moonshine.lsp;
 	 
 	@see https://microsoft.github.io/language-server-protocol/specification#textdocumentidentifier
 **/
+@:structInit
 class TextDocumentIdentifier {
 	/**
 		The text document's URI.

@@ -26,6 +26,7 @@ package moonshine.lsp;
 
 	@see https://microsoft.github.io/language-server-protocol/specification#workspace_workspaceFolders
 **/
+@:structInit
 class WorkspaceFolder {
 	public var name:String;
 
