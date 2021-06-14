@@ -26,28 +26,7 @@ package moonshine.lsp;
 
 	@see https://microsoft.github.io/language-server-protocol/specification#workspace_workspaceFolders
 **/
-@:structInit
-class WorkspaceFolder {
-	public var name:String;
-
-	public var uri:String;
-
-	public function new(name:String = null, uri:String = null) {
-		this.name = name;
-		this.uri = uri;
-	}
-
-	public static function parse(original:Dynamic):WorkspaceFolder {
-		var vo = new WorkspaceFolder();
-		vo.name = original.name;
-		vo.uri = original.uri;
-		return vo;
-	}
-
-	public function serialize():Any {
-		return {
-			name: name,
-			uri: uri,
-		};
-	}
+typedef WorkspaceFolder = {
+	name:String,
+	uri:String,
 }

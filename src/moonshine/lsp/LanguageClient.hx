@@ -695,7 +695,7 @@ class LanguageClient extends EventDispatcher {
 		var params = {
 			rootUri: (mainWorkspaceFolder != null) ? mainWorkspaceFolder.uri : null,
 			rootPath: (mainWorkspaceFolder != null) ? uriToFilePath(mainWorkspaceFolder.uri) : null,
-			workspaceFolders: _workspaceFolders.map(workspaceFolder -> workspaceFolder.serialize()),
+			workspaceFolders: _workspaceFolders,
 			initializationOptions: initializationOptions,
 			capabilities: {
 				workspace: {
