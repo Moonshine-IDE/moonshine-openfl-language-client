@@ -372,7 +372,7 @@ class LanguageClient extends EventDispatcher {
 		_definitionLookup[id] = new ParamsAndCallback(params, callback);
 	}
 
-	private function typeDefinitionHandler(params:TypeDefinitionParams, callback:(Null<Array<Any>>) -> Void):Void {
+	public function typeDefinition(params:TypeDefinitionParams, callback:(Null<Array<Any>>) -> Void):Void {
 		if (!_initialized || _stopped || _shutdownID != -1) {
 			return;
 		}
