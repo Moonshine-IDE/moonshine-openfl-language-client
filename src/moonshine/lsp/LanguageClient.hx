@@ -197,7 +197,7 @@ class LanguageClient extends EventDispatcher {
 	private var _previousWorkspaceSymbolsID:Int = -1;
 
 	private var supportsCompletion:Bool = false;
-	private var resolveCompletion:Bool = false;
+	private var supportsResolveCompletion:Bool = false;
 	private var supportsHover:Bool = false;
 	private var supportsSignatureHelp:Bool = false;
 	private var supportsDefinition:Bool = false;
@@ -320,11 +320,11 @@ class LanguageClient extends EventDispatcher {
 		_completionLookup[id] = new ParamsAndCallback(params, callback);
 	}
 
-	public function resolveCompletionHandler(item:CompletionItem, callback:(CompletionItem) -> Void):Void {
+	public function resolveCompletion(item:CompletionItem, callback:(CompletionItem) -> Void):Void {
 		if (!_initialized || _stopped || _shutdownID != -1) {
 			return;
 		}
-		if (!resolveCompletion) {
+		if (!supportsResolveCompletion) {
 			callback(item);
 			return;
 		}
@@ -1122,7 +1122,7 @@ class LanguageClient extends EventDispatcher {
 		_serverCapabilities = (result.capabilities : ServerCapabilities);
 		supportsCompletion = _serverCapabilities != null
 			&& _serverCapabilities.completionProvider != null; // unlike others, this one can't simply be true
-		resolveCompletion = supportsCompletion
+		supportsResolveCompletion = supportsCompletion
 			&& Reflect.hasField(_serverCapabilities.completionProvider, "resolveProvider")
 			&& Reflect.field(_serverCapabilities.completionProvider, "resolveProvider") != null
 			&& Reflect.field(_serverCapabilities.completionProvider, "resolveProvider") != false;
