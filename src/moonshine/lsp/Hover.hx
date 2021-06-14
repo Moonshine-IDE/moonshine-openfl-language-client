@@ -60,5 +60,3 @@ class Hover {
 		return vo;
 	}
 }
-
-typedef MarkedString = {language:String, value:String};
