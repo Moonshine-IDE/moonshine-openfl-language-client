@@ -31,6 +31,7 @@ class LspNotificationEvent<T> extends Event {
 
 	public function new(type:EventType<LspNotificationEvent<T>>, params:T) {
 		super(type);
+		this.params = params;
 	}
 
 	public var params:T;
