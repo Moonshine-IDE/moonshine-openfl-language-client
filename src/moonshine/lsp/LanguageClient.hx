@@ -17,6 +17,7 @@
 
 package moonshine.lsp;
 
+import openfl.Lib;
 import haxe.Json;
 import moonshine.lsp.events.LspNotificationEvent;
 import openfl.errors.ArgumentError;
@@ -693,6 +694,15 @@ class LanguageClient extends EventDispatcher {
 		var file = new flash.filesystem.File();
 		file.url = uri;
 		return file.nativePath;
+		#elseif flash
+		try {
+			var fileClass = Lib.getDefinitionByName("flash.filesystem.File");
+			var file = Type.createInstance(fileClass, []);
+			Reflect.setProperty(file, "url", uri);
+			return Reflect.getProperty(file, "nativePath");
+		} catch (e:Any) {
+			return null;
+		}
 		#else
 		return null;
 		#end
