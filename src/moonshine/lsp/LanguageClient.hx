@@ -1072,6 +1072,9 @@ class LanguageClient extends EventDispatcher {
 			case METHOD_CLIENT__UNREGISTER_CAPABILITY:
 				client__unregisterCapability(object);
 				sendResponse(object.id, {});
+			case METHOD_WINDOW__WORK_DONE_PROGRESS__CREATE:
+				window__workDoneProgress__create(object);
+				sendResponse(object.id, {});
 			default:
 				found = false;
 		}
@@ -1103,9 +1106,6 @@ class LanguageClient extends EventDispatcher {
 				canHandleNotification = true;
 			case METHOD_WINDOW__SHOW_MESSAGE:
 				window__showMessage(object);
-				canHandleNotification = true;
-			case METHOD_WINDOW__WORK_DONE_PROGRESS__CREATE:
-				window__workDoneProgress__create(object);
 				canHandleNotification = true;
 			case METHOD_TELEMETRY__EVENT:
 				canHandleNotification = true;
