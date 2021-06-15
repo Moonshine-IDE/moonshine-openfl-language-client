@@ -235,6 +235,10 @@ class LanguageClient extends EventDispatcher {
 		}
 		_workspaceFolders.push(workspaceFolder);
 
+		if (!_initialized || _stopped || _shutdownID != -1) {
+			return;
+		}
+
 		var params:DidChangeWorkspaceFoldersParams = {
 			event: {
 				added: [workspaceFolder],
@@ -250,6 +254,10 @@ class LanguageClient extends EventDispatcher {
 			return;
 		}
 		_workspaceFolders.splice(index, 1);
+
+		if (!_initialized || _stopped || _shutdownID != -1) {
+			return;
+		}
 
 		var params:DidChangeWorkspaceFoldersParams = {
 			event: {
