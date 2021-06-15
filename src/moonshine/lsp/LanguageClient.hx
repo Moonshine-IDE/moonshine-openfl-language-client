@@ -1076,7 +1076,7 @@ class LanguageClient extends EventDispatcher {
 				found = false;
 		}
 		if (!found) {
-			trace("Error: Unknown method requested by language server. Method: " + method);
+			trace('Warning: Language server sent request with method named "$method", but this method is not recognized.');
 		}
 	}
 
@@ -1116,7 +1116,7 @@ class LanguageClient extends EventDispatcher {
 			found = handleNotification(object) || found;
 		}
 		if (!found) {
-			trace("Error: Unknown method requested by language server. Method: " + method);
+			trace('Warning: Language server sent notification with method named "$method", but no notification handlers are registered for this method.');
 		}
 	}
 
