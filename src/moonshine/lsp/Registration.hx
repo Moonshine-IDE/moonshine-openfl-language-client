@@ -26,8 +26,23 @@ package moonshine.lsp;
 
 	@see https://microsoft.github.io/language-server-protocol/specification#client_registerCapability
 **/
-typedef Registration = {
-	id:String,
-	method:String,
-	?registerOptions:Any,
+@:structInit
+class Registration {
+	public function new(id:String, method:String, ?registerOptions:Any) {
+		this.id = id;
+		this.method = method;
+		this.registerOptions = registerOptions;
+	}
+
+	public var id:String;
+	public var method:String;
+	public var registerOptions:Null<Any>;
+
+	public static function parse(jsonParams:Any):Registration {
+		return {
+			id: Reflect.field(jsonParams, "id"),
+			method: Reflect.field(jsonParams, "method"),
+			registerOptions: Reflect.hasField(jsonParams, "registerOptions") ? Reflect.field(jsonParams, "registerOptions") : null
+		};
+	}
 }

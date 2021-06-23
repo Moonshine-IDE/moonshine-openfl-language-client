@@ -26,7 +26,20 @@ package moonshine.lsp;
 
 	@see https://microsoft.github.io/language-server-protocol/specification#window_showMessage
 **/
-typedef ShowMessageParams = {
-	type:MessageType,
-	message:String,
+@:structInit
+class ShowMessageParams {
+	public function new(type:MessageType, message:String) {
+		this.type = type;
+		this.message = message;
+	}
+
+	public var type:MessageType;
+	public var message:String;
+
+	public static function parse(jsonParams:Any):ShowMessageParams {
+		return {
+			type: Reflect.field(jsonParams, "type"),
+			message: Reflect.field(jsonParams, "message")
+		};
+	}
 }

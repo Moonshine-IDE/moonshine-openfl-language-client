@@ -1440,7 +1440,8 @@ class LanguageClient extends EventDispatcher {
 	}
 
 	private function client__registerCapability(jsonObject:Dynamic):Void {
-		var params = (jsonObject.params : RegistrationParams);
+		var jsonParams:Any = Reflect.field(jsonObject, "params");
+		var params = RegistrationParams.parse(jsonParams);
 		for (registration in params.registrations) {
 			updateRegisteredCapability(registration, true);
 		}
@@ -1448,7 +1449,8 @@ class LanguageClient extends EventDispatcher {
 	}
 
 	private function client__unregisterCapability(jsonObject:Dynamic):Void {
-		var params = (jsonObject.params : RegistrationParams);
+		var jsonParams:Any = Reflect.field(jsonObject, "params");
+		var params = RegistrationParams.parse(jsonParams);
 		for (registration in params.registrations) {
 			updateRegisteredCapability(registration, false);
 		}
@@ -1456,7 +1458,8 @@ class LanguageClient extends EventDispatcher {
 	}
 
 	private function dollar__progress(jsonObject:Dynamic):Void {
-		var params = (jsonObject.params : ProgressParams);
+		var jsonParams:Any = Reflect.field(jsonObject, "params");
+		var params = ProgressParams.parse(jsonParams);
 		dispatchEvent(new LspNotificationEvent(LspNotificationEvent.PROGRESS, params));
 	}
 
@@ -1465,12 +1468,14 @@ class LanguageClient extends EventDispatcher {
 	}
 
 	private function window__logMessage(jsonObject:Dynamic):Void {
-		var params = (jsonObject.params : LogMessageParams);
+		var jsonParams:Any = Reflect.field(jsonObject, "params");
+		var params = LogMessageParams.parse(jsonParams);
 		dispatchEvent(new LspNotificationEvent(LspNotificationEvent.LOG_MESSAGE, params));
 	}
 
 	private function window__showMessage(jsonObject:Dynamic):Void {
-		var params = (jsonObject.params : ShowMessageParams);
+		var jsonParams:Any = Reflect.field(jsonObject, "params");
+		var params = ShowMessageParams.parse(jsonParams);
 		dispatchEvent(new LspNotificationEvent(LspNotificationEvent.SHOW_MESSAGE, params));
 	}
 

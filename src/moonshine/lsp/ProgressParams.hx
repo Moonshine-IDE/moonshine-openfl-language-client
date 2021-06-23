@@ -26,7 +26,20 @@ package moonshine.lsp;
 
 	@see https://microsoft.github.io/language-server-protocol/specification#progress
 **/
-typedef ProgressParams = {
-	token:Any /* Int | String */,
-	value:Any,
+@:structInit
+class ProgressParams {
+	public function new(token:Any /* Int | String */, value:Any) {
+		this.token = token;
+		this.value = value;
+	}
+
+	public var token:Any /* Int | String */;
+	public var value:Any;
+
+	public static function parse(jsonParams:Any):ProgressParams {
+		return {
+			token: Reflect.field(jsonParams, "token"),
+			value: Reflect.field(jsonParams, "value")
+		};
+	}
 }

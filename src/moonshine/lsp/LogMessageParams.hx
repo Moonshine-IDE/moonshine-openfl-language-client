@@ -26,7 +26,20 @@ package moonshine.lsp;
 
 	@see https://microsoft.github.io/language-server-protocol/specification#window_logMessage
 **/
-typedef LogMessageParams = {
-	type:MessageType,
-	message:String,
+@:structInit
+class LogMessageParams {
+	public function new(type:MessageType, message:String) {
+		this.type = type;
+		this.message = message;
+	}
+
+	public var type:MessageType;
+	public var message:String;
+
+	public static function parse(jsonParams:Any):LogMessageParams {
+		return {
+			type: Reflect.field(jsonParams, "type"),
+			message: Reflect.field(jsonParams, "message")
+		};
+	}
 }
