@@ -26,8 +26,30 @@ package moonshine.lsp;
 
 	@see https://microsoft.github.io/language-server-protocol/specification#textDocument_publishDiagnostics
 **/
-typedef PublishDiagnosticsParams = {
-	uri:String,
-	?version:Int,
-	diagnostics:Array<Any>,
+@:structInit
+class PublishDiagnosticsParams {
+	public function new(uri:String, version:Null<Int>, diagnostics:Array<Diagnostic>) {
+		this.uri = uri;
+		this.version = version;
+		this.diagnostics = diagnostics;
+	}
+
+	public var uri:String;
+	public var version:Null<Int> = null;
+	public var diagnostics:Array<Diagnostic>;
+
+	public static function parse(jsonParams:Any):PublishDiagnosticsParams {
+		var uri:String = Reflect.field(jsonParams, "uri");
+		var version:Null<Int> = null;
+		if (Reflect.hasField(jsonParams, "version")) {
+			version = Reflect.field(jsonParams, "version");
+		}
+		var jsonDiagnostics:Array<Any> = Reflect.field(jsonParams, "diagnostics");
+		var diagnostics = jsonDiagnostics.map(jsonResult -> Diagnostic.parse(jsonResult));
+		return {
+			uri: uri,
+			version: version,
+			diagnostics: diagnostics
+		}
+	}
 }

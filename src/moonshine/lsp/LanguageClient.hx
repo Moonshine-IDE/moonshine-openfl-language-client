@@ -1434,10 +1434,9 @@ class LanguageClient extends EventDispatcher {
 	}
 
 	private function textDocument__publishDiagnostics(jsonObject:Dynamic):Void {
-		var params = (jsonObject.params : PublishDiagnosticsParams);
-		var uri = params.uri;
-		var diagnostics = params.diagnostics.map(jsonResult -> Diagnostic.parse(jsonResult));
-		dispatchEvent(new LspNotificationEvent(LspNotificationEvent.PUBLISH_DIAGNOSTICS, [uri => diagnostics]));
+		var jsonParams:Any = Reflect.field(jsonObject, "params");
+		var params = PublishDiagnosticsParams.parse(jsonParams);
+		dispatchEvent(new LspNotificationEvent(LspNotificationEvent.PUBLISH_DIAGNOSTICS, params));
 	}
 
 	private function client__registerCapability(jsonObject:Dynamic):Void {
