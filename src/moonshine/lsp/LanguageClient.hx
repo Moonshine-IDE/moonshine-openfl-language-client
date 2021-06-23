@@ -1039,6 +1039,10 @@ class LanguageClient extends EventDispatcher {
 				}
 				_previousWorkspaceSymbolsID = requestID;
 				handleWorkspaceSymbolsResponse(result, paramsAndCallback.params, paramsAndCallback.callback);
+			} else if (_executeCommandLookup.exists(requestID)) {
+				var paramsAndCallback = _executeCommandLookup.get(requestID);
+				_executeCommandLookup.remove(requestID);
+				handleExecuteCommandResponse(result, paramsAndCallback.params, paramsAndCallback.callback);
 			} else {
 				trace("Unknown language server response: " + Json.stringify(object));
 			}
@@ -1373,6 +1377,10 @@ class LanguageClient extends EventDispatcher {
 		var resultArray = (result : Array<Any>);
 		var symbolInformation = resultArray.map(jsonResult -> SymbolInformation.parse(jsonResult));
 		callback(symbolInformation);
+	}
+
+	private function handleExecuteCommandResponse(result:Any, params:ExecuteCommandParams, callback:(Null<Any>) -> Void):Void {
+		callback(result);
 	}
 
 	private function updateRegisteredCapability(registration:Registration, enable:Bool):Void {
