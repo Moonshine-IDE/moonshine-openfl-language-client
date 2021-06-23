@@ -25,7 +25,7 @@ class LspNotificationEvent<T> extends Event {
 	public static final SHOW_MESSAGE:EventType<LspNotificationEvent<ShowMessageParams>> = "showMessage";
 	public static final REGISTER_CAPABILITY:EventType<LspNotificationEvent<RegistrationParams>> = "registerCapability";
 	public static final UNREGISTER_CAPABILITY:EventType<LspNotificationEvent<RegistrationParams>> = "unregisterCapability";
-	public static final APPLY_EDIT:EventType<LspNotificationEvent<WorkspaceEdit>> = "applyEdit";
+	public static final APPLY_EDIT:EventType<LspNotificationEvent<ApplyWorkspaceEditParams>> = "applyEdit";
 	public static final PROGRESS:EventType<LspNotificationEvent<ProgressParams>> = "progress";
 	public static final PUBLISH_DIAGNOSTICS:EventType<LspNotificationEvent<Map<String, Array<Diagnostic>>>> = "publishDiagnostics";
 

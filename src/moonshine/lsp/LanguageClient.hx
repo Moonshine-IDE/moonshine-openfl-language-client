@@ -1427,10 +1427,10 @@ class LanguageClient extends EventDispatcher {
 		}
 	}
 
-	private function workspace__applyEdit(jsonObject:Dynamic):Void {
-		var params = (jsonObject.params : ApplyWorkspaceEditParams);
-		var workspaceEdit = WorkspaceEdit.parse(params.edit);
-		dispatchEvent(new LspNotificationEvent(LspNotificationEvent.APPLY_EDIT, workspaceEdit));
+	private function workspace__applyEdit(jsonObject:Any):Void {
+		var jsonParams:Any = Reflect.field(jsonObject, "params");
+		var params = ApplyWorkspaceEditParams.parse(jsonParams);
+		dispatchEvent(new LspNotificationEvent(LspNotificationEvent.APPLY_EDIT, params));
 	}
 
 	private function textDocument__publishDiagnostics(jsonObject:Dynamic):Void {

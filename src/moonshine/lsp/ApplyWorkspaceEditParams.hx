@@ -26,7 +26,25 @@ package moonshine.lsp;
 
 	@see https://microsoft.github.io/language-server-protocol/specification#workspace_applyEdit
 **/
-typedef ApplyWorkspaceEditParams = {
-	?label:String,
-	edit:Any,
+@:structInit
+class ApplyWorkspaceEditParams {
+	public function new(edit:Any, ?label:String) {
+		this.edit = edit;
+		this.label = label;
+	}
+
+	public var label:Null<String>;
+	public var edit:WorkspaceEdit;
+
+	public static function parse(jsonParams:Any):ApplyWorkspaceEditParams {
+		var label:String = null;
+		if (Reflect.hasField(jsonParams, "label")) {
+			label = Reflect.field(jsonParams, "label");
+		}
+		var edit = WorkspaceEdit.parse(Reflect.field(jsonParams, "edit"));
+		return {
+			edit: edit,
+			label: label
+		};
+	}
 }
