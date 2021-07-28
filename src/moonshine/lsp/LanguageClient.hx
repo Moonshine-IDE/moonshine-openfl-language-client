@@ -1406,6 +1406,16 @@ class LanguageClient extends EventDispatcher {
 				supportsCodeLens = enable;
 			case METHOD_TEXT_DOCUMENT__COMPLETION:
 				supportsCompletion = enable;
+				if (enable) {
+					var registerOptions = registration.registerOptions;
+					if (registerOptions != null && Reflect.hasField(registerOptions, "resolveProvider")) {
+						supportsResolveCompletion = Reflect.field(registerOptions, "resolveProvider") == true;
+					} else {
+						supportsResolveCompletion = false;
+					}
+				} else {
+					supportsResolveCompletion = false;
+				}
 			case METHOD_TEXT_DOCUMENT__DEFINITION:
 				supportsDefinition = enable;
 			case METHOD_TEXT_DOCUMENT__TYPE_DEFINITION:
