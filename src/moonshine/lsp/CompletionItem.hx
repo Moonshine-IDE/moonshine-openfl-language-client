@@ -29,7 +29,6 @@ package moonshine.lsp;
 @:structInit
 class CompletionItem {
 	private static final FIELD_COMMAND:String = "command";
-	private static final FIELD_IS_INCOMPLETE:String = "isIncomplete";
 	private static final FIELD_TEXT_EDIT:String = "textEdit";
 	private static final FIELD_ADDITIONAL_TEXT_EDITS:String = "additionalTextEdits";
 	private static final FIELD_LABEL:String = "label";
@@ -75,13 +74,22 @@ class CompletionItem {
 	public function new() {}
 
 	public static function resolve(item:CompletionItem, resolvedFields:Dynamic):CompletionItem {
+		return populate(item, resolvedFields, true);
+	}
+
+	public static function parse(original:Dynamic):CompletionItem {
+		var item:CompletionItem = new CompletionItem();
+		return populate(item, original, false);
+	}
+
+	private static function populate(item:CompletionItem, resolvedFields:Dynamic, resolving:Bool):CompletionItem {
 		if (Reflect.hasField(resolvedFields, FIELD_LABEL)) {
 			item.label = Reflect.field(resolvedFields, FIELD_LABEL);
 		}
 		if (Reflect.hasField(resolvedFields, FIELD_SORT_TEXT)) {
 			item.sortText = Reflect.field(resolvedFields, FIELD_SORT_TEXT);
 			item.sortText = item.sortText.toLowerCase();
-		} else {
+		} else if (!resolving) {
 			item.sortText = item.label.toLowerCase();
 		}
 		if (Reflect.hasField(resolvedFields, FIELD_INSERT_TEXT)) {
@@ -117,11 +125,6 @@ class CompletionItem {
 			item.data = Reflect.field(resolvedFields, FIELD_DATA);
 		}
 		return item;
-	}
-
-	public static function parse(original:Dynamic):CompletionItem {
-		var item:CompletionItem = new CompletionItem();
-		return resolve(item, original);
 	}
 
 	public function toJSON(key:String):Any {
