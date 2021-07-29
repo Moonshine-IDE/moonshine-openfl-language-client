@@ -48,7 +48,7 @@ class CompletionItem {
 
 	public var detail:String;
 
-	public var documentation:String;
+	public var documentation:Any /* String | MarkupContent */;
 
 	public var insertText:String = null;
 
@@ -99,7 +99,14 @@ class CompletionItem {
 			item.detail = Reflect.field(resolvedFields, FIELD_DETAIL);
 		}
 		if (Reflect.hasField(resolvedFields, FIELD_DOCUMENTATION)) {
-			item.documentation = Reflect.field(resolvedFields, FIELD_DOCUMENTATION);
+			var documentation = Reflect.field(resolvedFields, FIELD_DOCUMENTATION);
+			if ((documentation is String)) {
+				item.documentation = documentation;
+			} else if (documentation != null && Reflect.hasField(documentation, "kind") && Reflect.hasField(documentation, "value")) {
+				item.documentation = MarkupContent.parse(documentation);
+			} else {
+				item.documentation = documentation;
+			}
 		}
 		if (Reflect.hasField(resolvedFields, FIELD_DEPRECATED)) {
 			item.deprecated = Reflect.field(resolvedFields, FIELD_DEPRECATED) == true;
