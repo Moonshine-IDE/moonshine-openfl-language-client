@@ -74,23 +74,20 @@ class CompletionItem {
 	public function new() {}
 
 	public static function resolve(item:CompletionItem, resolvedFields:Dynamic):CompletionItem {
-		return populate(item, resolvedFields, true);
+		return populate(item, resolvedFields);
 	}
 
 	public static function parse(original:Dynamic):CompletionItem {
 		var item:CompletionItem = new CompletionItem();
-		return populate(item, original, false);
+		return populate(item, original);
 	}
 
-	private static function populate(item:CompletionItem, resolvedFields:Dynamic, resolving:Bool):CompletionItem {
+	private static function populate(item:CompletionItem, resolvedFields:Dynamic):CompletionItem {
 		if (Reflect.hasField(resolvedFields, FIELD_LABEL)) {
 			item.label = Reflect.field(resolvedFields, FIELD_LABEL);
 		}
 		if (Reflect.hasField(resolvedFields, FIELD_SORT_TEXT)) {
 			item.sortText = Reflect.field(resolvedFields, FIELD_SORT_TEXT);
-			item.sortText = item.sortText.toLowerCase();
-		} else if (!resolving) {
-			item.sortText = item.label.toLowerCase();
 		}
 		if (Reflect.hasField(resolvedFields, FIELD_INSERT_TEXT)) {
 			item.insertText = Reflect.field(resolvedFields, FIELD_INSERT_TEXT);
