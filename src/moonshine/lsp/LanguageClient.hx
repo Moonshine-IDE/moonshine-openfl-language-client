@@ -218,7 +218,7 @@ class LanguageClient extends EventDispatcher {
 	private var _uriSchemes:Array<String> = [];
 	private var _workspaceFolders:Array<WorkspaceFolder> = [];
 
-	public function start(?initializationOptions:Any):Void {
+	public function initialize(params:InitializeParams):Void {
 		if (_calledStart) {
 			return;
 		}
@@ -226,7 +226,12 @@ class LanguageClient extends EventDispatcher {
 
 		_inputDispatcher.addEventListener(_inputEventType, languageClient_input_onData);
 
-		sendInitialize(initializationOptions);
+		var mainWorkspaceFolder = _workspaceFolders.length > 0 ? _workspaceFolders[0] : null;
+		params.rootUri = (mainWorkspaceFolder != null) ? mainWorkspaceFolder.uri : null;
+		params.rootPath = (mainWorkspaceFolder != null) ? uriToFilePath(mainWorkspaceFolder.uri) : null;
+		params.workspaceFolders = _workspaceFolders;
+
+		_initializeID = sendRequest(METHOD_INITIALIZE, params);
 	}
 
 	public function addWorkspaceFolder(workspaceFolder:WorkspaceFolder):Void {
@@ -269,7 +274,7 @@ class LanguageClient extends EventDispatcher {
 		sendNotification(METHOD_WORKSPACE__DID_CHANGE_WORKSPACE_FOLDERS, params);
 	}
 
-	public function stop():Void {
+	public function shutdown():Void {
 		if (!_initialized || _stopped || _shutdownID != -1) {
 			return;
 		}
@@ -578,7 +583,7 @@ class LanguageClient extends EventDispatcher {
 		} catch (e:Any) {
 			// if there's something wrong with the IDataOutput, we can't
 			// send a final shutdown request
-			stop();
+			shutdown();
 			return;
 		}
 		if (_outputFlushCallback != null) {
@@ -625,7 +630,7 @@ class LanguageClient extends EventDispatcher {
 			if (method != METHOD_SHUTDOWN) {
 				// if there's something wrong with the IDataOutput, we can't
 				// send a final shutdown request
-				stop();
+				shutdown();
 			} else {
 				// something went wrong while sending the shutdown request
 				// there's nothing that we can do about that, so notify
@@ -676,7 +681,7 @@ class LanguageClient extends EventDispatcher {
 		} catch (e:Any) {
 			// if there's something wrong with the IDataOutput, we can't
 			// send a final shutdown request
-			stop();
+			shutdown();
 			return;
 		}
 		if (_outputFlushCallback != null) {
@@ -706,124 +711,6 @@ class LanguageClient extends EventDispatcher {
 		#else
 		return null;
 		#end
-	}
-
-	private function sendInitialize(initializationOptions:Any):Void {
-		var mainWorkspaceFolder = _workspaceFolders.length > 0 ? _workspaceFolders[0] : null;
-		var params = {
-			rootUri: (mainWorkspaceFolder != null) ? mainWorkspaceFolder.uri : null,
-			rootPath: (mainWorkspaceFolder != null) ? uriToFilePath(mainWorkspaceFolder.uri) : null,
-			workspaceFolders: _workspaceFolders,
-			initializationOptions: initializationOptions,
-			capabilities: {
-				workspace: {
-					applyEdit: true,
-					workspaceEdit: {
-						documentChanges: false
-					},
-					didChangeConfiguration: {
-						dynamicRegistration: false
-					},
-					didChangeWatchedFiles: {
-						dynamicRegistration: false
-					},
-					symbol: {
-						dynamicRegistration: true
-					},
-					executeCommand: {
-						dynamicRegistration: true
-					},
-					workspaceFolders: false,
-					configuration: false
-				},
-				textDocument: {
-					synchronization: {
-						dynamicRegistration: false,
-						willSave: true,
-						willSaveWaitUntil: false,
-						didSave: true
-					},
-					completion: {
-						dynamicRegistration: true,
-						completionItem: {
-							snippetSupport: false,
-							commitCharactersSupport: false,
-							documentationFormat: ["plaintext"],
-							deprecatedSupport: false
-						},
-						completionItemKind: {
-							// valueSet: []
-						},
-						contextSupport: false
-					},
-					hover: {
-						dynamicRegistration: true,
-						contentFormat: ["plaintext"]
-					},
-					signatureHelp: {
-						dynamicRegistration: true,
-						signatureInformation: {
-							documentationFormat: ["plaintext"]
-						}
-					},
-					references: {
-						dynamicRegistration: true
-					},
-					documentHighlight: {
-						dynamicRegistration: false
-					},
-					documentSymbol: {
-						dynamicRegistration: true,
-						hierarchicalDocumentSymbolSupport: true,
-						symbolKind: {
-							// valueSet: []
-						}
-					},
-					formatting: {
-						dynamicRegistration: false
-					},
-					rangeFormatting: {
-						dynamicRegistration: false
-					},
-					onTypeFormatting: {
-						dynamicRegistration: false
-					},
-					definition: {
-						dynamicRegistration: true
-					},
-					typeDefinition: {
-						dynamicRegistration: true
-					},
-					implementation: {
-						dynamicRegistration: false
-					},
-					codeAction: {
-						dynamicRegistration: true,
-						codeActionLiteralSupport: {
-							codeActionKind: {
-								// valueSet: []
-							}
-						}
-					},
-					codeLens: {
-						dynamicRegistration: false
-					},
-					documentLink: {
-						dynamicRegistration: false
-					},
-					colorProvider: {
-						dynamicRegistration: false
-					},
-					rename: {
-						dynamicRegistration: true
-					},
-					publishDiagnostics: {
-						relatedInformation: false
-					}
-				}
-			}
-		};
-		_initializeID = sendRequest(METHOD_INITIALIZE, params);
 	}
 
 	private function sendInitialized():Void {
