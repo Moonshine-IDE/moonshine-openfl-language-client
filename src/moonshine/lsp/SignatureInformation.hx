@@ -28,17 +28,42 @@ package moonshine.lsp;
 **/
 @:structInit
 class SignatureInformation {
+	private static final FIELD_LABEL:String = "label";
+	private static final FIELD_PARAMETERS:String = "parameters";
+	private static final FIELD_DOCUMENTATION:String = "documentation";
+	private static final FIELD_ACTIVE_PARAMETER:String = "activeParameter";
+
 	public var label:String = "";
 	public var parameters:Array<ParameterInformation>;
+	public var activeParameter:Int = -1;
+	public var documentation:Any /* String | MarkupContent */ = null;
 
 	public function new() {}
 
 	public static function parse(original:Dynamic):SignatureInformation {
 		var vo = new SignatureInformation();
-		vo.label = original.label;
+		if (Reflect.hasField(original, FIELD_LABEL)) {
+			vo.label = Reflect.field(original, FIELD_LABEL);
+		}
+		if (Reflect.hasField(original, FIELD_DOCUMENTATION)) {
+			var documentation = Reflect.field(original, FIELD_DOCUMENTATION);
+			if ((documentation is String)) {
+				vo.documentation = documentation;
+			} else if (documentation != null && Reflect.hasField(documentation, "kind") && Reflect.hasField(documentation, "value")) {
+				vo.documentation = MarkupContent.parse(documentation);
+			} else {
+				vo.documentation = documentation;
+			}
+		}
+		if (Reflect.hasField(original, FIELD_ACTIVE_PARAMETER)) {
+			vo.activeParameter = Reflect.field(original, FIELD_ACTIVE_PARAMETER);
+		}
 		var parameters:Array<ParameterInformation> = [];
-		for (parameter in cast(original.parameters, Array<Dynamic>)) {
-			parameters.push(ParameterInformation.parse(parameter));
+		if (Reflect.hasField(original, FIELD_PARAMETERS)) {
+			var originalParams = cast(Reflect.field(original, FIELD_PARAMETERS), Array<Dynamic>);
+			for (parameter in originalParams) {
+				parameters.push(ParameterInformation.parse(parameter));
+			}
 		}
 		vo.parameters = parameters;
 		return vo;

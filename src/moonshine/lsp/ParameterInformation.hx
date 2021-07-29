@@ -28,8 +28,11 @@ package moonshine.lsp;
 **/
 @:structInit
 class ParameterInformation {
-	public var label:String;
-	public var documentation:String;
+	private static final FIELD_LABEL:String = "label";
+	private static final FIELD_DOCUMENTATION:String = "documentation";
+
+	public var label:String = "";
+	public var documentation:Any /* String | MarkupContent */;
 
 	public function new(label:String = null, documentation:String = null) {
 		this.label = label;
@@ -38,8 +41,19 @@ class ParameterInformation {
 
 	public static function parse(original:Dynamic):ParameterInformation {
 		var vo = new ParameterInformation();
-		vo.label = original.label;
-		vo.documentation = original.documentation;
+		if (Reflect.hasField(original, FIELD_LABEL)) {
+			vo.label = Reflect.field(original, FIELD_LABEL);
+		}
+		if (Reflect.hasField(original, FIELD_DOCUMENTATION)) {
+			var documentation = Reflect.field(original, FIELD_DOCUMENTATION);
+			if ((documentation is String)) {
+				vo.documentation = documentation;
+			} else if (documentation != null && Reflect.hasField(documentation, "kind") && Reflect.hasField(documentation, "value")) {
+				vo.documentation = MarkupContent.parse(documentation);
+			} else {
+				vo.documentation = documentation;
+			}
+		}
 		return vo;
 	}
 }
