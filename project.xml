@@ -2,7 +2,7 @@
 <project>
 	
 	<meta title="moonshine-openfl-language-client" package="moonshine.openfl-language-client" version="1.0.0" company="Prominic.NET" />
-	<app file="moonshine-openfl-language-client" />
+	<app main="openfl.display.Sprite" file="moonshine-openfl-language-client" />
 
 	<window allow-high-dpi="true"/>
 	<window fps="60"/>
