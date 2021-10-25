@@ -39,6 +39,7 @@ class CompletionItem {
 	private static final FIELD_DEPRECATED:String = "deprecated";
 	private static final FIELD_DATA:String = "data";
 	private static final FIELD_KIND:String = "kind";
+	private static final FIELD_INSERT_TEXT_FORMAT:String = "insertTextFormat";
 
 	public var label:String;
 
@@ -53,6 +54,8 @@ class CompletionItem {
 	public var insertText:String = null;
 
 	public var textEdit:TextEdit = null;
+
+	public var insertTextFormat:InsertTextFormat = PlainText;
 
 	/**
 		An optional command that is executed *after* inserting this completion.
@@ -91,6 +94,9 @@ class CompletionItem {
 		}
 		if (Reflect.hasField(resolvedFields, FIELD_INSERT_TEXT)) {
 			item.insertText = Reflect.field(resolvedFields, FIELD_INSERT_TEXT);
+		}
+		if (Reflect.hasField(resolvedFields, FIELD_INSERT_TEXT_FORMAT)) {
+			item.insertTextFormat = Reflect.field(resolvedFields, FIELD_INSERT_TEXT_FORMAT);
 		}
 		if (Reflect.hasField(resolvedFields, FIELD_KIND)) {
 			item.kind = Reflect.field(resolvedFields, FIELD_KIND);
@@ -136,6 +142,7 @@ class CompletionItem {
 		result.label = this.label;
 		result.kind = this.kind;
 		result.deprecated = this.deprecated;
+		result.insertTextFormat = this.insertTextFormat;
 		if (this.detail != null) {
 			result.detail = this.detail;
 		}
