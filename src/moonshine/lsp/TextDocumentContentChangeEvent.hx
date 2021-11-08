@@ -27,7 +27,20 @@ package moonshine.lsp;
 	@see https://microsoft.github.io/language-server-protocol/specification#textDocument_didChange
 **/
 typedef TextDocumentContentChangeEvent = {
+	/**
+		The range of the document that changed.
+	**/
 	?range:Range,
+
+	/**
+		The optional length of the range that got replaced.
+
+		Deprecated. Use `range` instead.
+	**/
 	?rangeLength:Int,
+
+	/**
+		The new text of the whole document.
+	**/
 	text:String,
 }

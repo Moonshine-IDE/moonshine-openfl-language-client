@@ -28,7 +28,18 @@ package moonshine.lsp;
 **/
 @:enum
 abstract TraceValue(String) from String to String {
+	/**
+		Turn off $/logTrace notifications
+	**/
 	var Off = "off";
+
+	/**
+		Messages only for $/logTrace notifications
+	**/
 	var Messages = "messages";
+
+	/**
+		Verbose $/logTrace notifications
+	**/
 	var Verbose = "verbose";
 }

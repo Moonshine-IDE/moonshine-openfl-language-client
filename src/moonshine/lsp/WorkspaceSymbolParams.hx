@@ -29,5 +29,10 @@ package moonshine.lsp;
 typedef WorkspaceSymbolParams = {
 	> WorkDoneProgressParams,
 	> PartialResultParams,
+
+	/**
+		A query string to filter symbols by. Clients may send an empty string
+		here to request all symbols.
+	**/
 	query:String,
 }

@@ -41,20 +41,74 @@ class CompletionItem {
 	private static final FIELD_KIND:String = "kind";
 	private static final FIELD_INSERT_TEXT_FORMAT:String = "insertTextFormat";
 
+	/**
+		The label of this completion item.
+
+		The label property is also by default the text that
+		is inserted when selecting this completion.
+
+		If label details are provided the label itself should
+		be an unqualified name of the completion item.
+	**/
 	public var label:String;
 
+	/**
+		A string that should be used when comparing this item
+		with other items. When `falsy` the label is used
+		as the sort text for this item.
+	**/
 	public var sortText:String;
 
+	/**
+		The kind of this completion item. Based of the kind
+		an icon is chosen by the editor. The standardized set
+		of available values is defined in `CompletionItemKind`.
+	**/
 	public var kind:CompletionItemKind;
 
+	/**
+		A human-readable string with additional information
+		about this item, like type or symbol information.
+	**/
 	public var detail:String;
 
+	/**
+		A human-readable string that represents a doc-comment.
+	**/
 	public var documentation:Any /* String | MarkupContent */;
 
+	/**
+		A string that should be inserted into a document when selecting
+		this completion. When `falsy` the label is used as the insert text
+		for this item.
+
+		The `insertText` is subject to interpretation by the client side.
+		Some tools might not take the string literally. For example
+		VS Code when code complete is requested in this example
+		`con<cursor position>` and a completion item with an `insertText` of
+		`console` is provided it will only insert `sole`. Therefore it is
+		recommended to use `textEdit` instead since it avoids additional client
+		side interpretation.
+	**/
 	public var insertText:String = null;
 
+	/**
+		An edit which is applied to a document when selecting this completion.
+		When an edit is provided the value of `insertText` is ignored.
+
+		*Note:* The range of the edit must be a single line range and it must
+		contain the position at which completion has been requested.
+	**/
 	public var textEdit:TextEdit = null;
 
+	/**
+		The format of the insert text. The format applies to both the
+		`insertText` property and the `newText` property of a provided
+		`textEdit`. If omitted defaults to `InsertTextFormat.PlainText`.
+
+		Please note that the insertTextFormat doesn't apply to
+		`additionalTextEdits`.
+	**/
 	public var insertTextFormat:InsertTextFormat = PlainText;
 
 	/**
@@ -70,8 +124,27 @@ class CompletionItem {
 	**/
 	public var data:Any;
 
+	/**
+		Indicates if this item is deprecated.
+
+		Deprecated. Use `tags` instead if supported.
+	**/
 	public var deprecated:Bool;
 
+	/**
+		Tags for this completion item.
+	**/
+	public var tags:Array<CompletionItemTag>;
+
+	/**
+		An optional array of additional text edits that are applied when
+		selecting this completion. Edits must not overlap (including the same
+		insert position) with the main edit nor with themselves.
+
+		Additional text edits should be used to change text unrelated to the
+		current cursor position (for example adding an import statement at the
+		top of the file if the completion item will insert an unqualified type).
+	**/
 	public var additionalTextEdits:Array<TextEdit>;
 
 	public function new() {}

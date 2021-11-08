@@ -31,8 +31,8 @@ class CreateFile {
 	public static final KIND:String = "create";
 
 	/**
-	 * The kind of file operation.
-	 */
+		The kind of file operation.
+	**/
 	public final kind:String = KIND;
 
 	/**

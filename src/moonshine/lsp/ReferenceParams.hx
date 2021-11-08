@@ -32,5 +32,9 @@ typedef ReferenceParams = {
 	> TextDocumentPositionParams,
 	> WorkDoneProgressParams,
 	> PartialResultParams,
+
+	/**
+		The context for the request.
+	**/
 	context:ReferenceContext,
 }

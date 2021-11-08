@@ -28,7 +28,14 @@ package moonshine.lsp;
 **/
 @:structInit
 class Location {
+	/**
+		The target resource identifier.
+	**/
 	public var uri:String;
+
+	/**
+		The full target range
+	**/
 	public var range:Range;
 
 	public function new(uri:String = null, range:Range = null) {

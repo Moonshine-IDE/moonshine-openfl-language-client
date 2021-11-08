@@ -27,6 +27,13 @@ package moonshine.lsp;
 	@see https://microsoft.github.io/language-server-protocol/specification#workspace_executeCommand
 **/
 typedef ExecuteCommandParams = {
+	/**
+		The identifier of the actual command handler.
+	**/
 	command:String,
+
+	/**
+		Arguments that the command should be invoked with.
+	**/
 	?arguments:Array<Any>,
 }

@@ -29,7 +29,19 @@ package moonshine.lsp;
 typedef CodeActionParams = {
 	> WorkDoneProgressParams,
 	> PartialResultParams,
+
+	/**
+		The document in which the command was invoked.
+	**/
 	textDocument:TextDocumentIdentifier,
+
+	/**
+		The range for which the command was invoked.
+	**/
 	range:Range,
+
+	/**
+		Context carrying additional information.
+	**/
 	context:CodeActionContext,
 }

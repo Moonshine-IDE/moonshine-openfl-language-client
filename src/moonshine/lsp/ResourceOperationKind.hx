@@ -28,7 +28,18 @@ package moonshine.lsp;
 **/
 @:enum
 abstract ResourceOperationKind(String) from String to String {
+	/**
+		Supports creating new files and folders.
+	**/
 	var Create = "create";
+
+	/**
+		Supports renaming existing files and folders.
+	**/
 	var Rename = "rename";
+
+	/**
+		Supports deleting existing files and folders.
+	**/
 	var Delete = "delete";
 }

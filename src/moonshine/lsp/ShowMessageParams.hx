@@ -33,7 +33,14 @@ class ShowMessageParams {
 		this.message = message;
 	}
 
+	/**
+		The message type.
+	**/
 	public var type:MessageType;
+
+	/**
+		The actual message.
+	**/
 	public var message:String;
 
 	public static function parse(jsonParams:Any):ShowMessageParams {

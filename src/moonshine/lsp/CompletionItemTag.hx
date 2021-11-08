@@ -28,5 +28,8 @@ package moonshine.lsp;
 **/
 @:enum
 abstract CompletionItemTag(Int) from Int to Int {
+	/**
+		Render a completion as obsolete, usually using a strike-out.
+	**/
 	var Deprecated = 1;
 }

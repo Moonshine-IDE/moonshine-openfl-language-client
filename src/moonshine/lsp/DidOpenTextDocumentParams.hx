@@ -27,5 +27,8 @@ package moonshine.lsp;
 	@see https://microsoft.github.io/language-server-protocol/specification#textDocument_didOpen
 **/
 typedef DidOpenTextDocumentParams = {
+	/**
+		The document that was opened.
+	**/
 	textDocument:TextDocumentItem,
 }

@@ -29,5 +29,8 @@ import moonshine.lsp.TextDocumentIdentifier;
 	@see https://microsoft.github.io/language-server-protocol/specification#textDocument_didClose
 **/
 typedef DidCloseTextDocumentParams = {
+	/**
+		The document that was closed.
+	**/
 	textDocument:TextDocumentIdentifier,
 }

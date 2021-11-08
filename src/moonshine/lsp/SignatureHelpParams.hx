@@ -31,5 +31,11 @@ import moonshine.lsp.TextDocumentPositionParams;
 typedef SignatureHelpParams = {
 	> TextDocumentPositionParams,
 	> WorkDoneProgressParams,
+
+	/**
+		The signature help context. This is only available if the client
+		specifies to send this using the client capability
+		`textDocument.signatureHelp.contextSupport === true`
+	**/
 	?context:SignatureHelpContext,
 }

@@ -29,9 +29,25 @@ package moonshine.lsp;
 class Diagnostic {
 	public function new() {}
 
+	/**
+		The diagnostic's message.
+	**/
 	public var message:String;
+
+	/**
+		The range at which the message applies.
+	**/
 	public var range:Range;
+
+	/**
+		The diagnostic's severity. Can be omitted. If omitted it is up to the
+		client to interpret diagnostics as error, warning, info or hint.
+	**/
 	public var severity:DiagnosticSeverity;
+
+	/**
+		The diagnostic's code, which might appear in the user interface.
+	**/
 	public var code:String;
 
 	public static function parse(original:Dynamic):Diagnostic {

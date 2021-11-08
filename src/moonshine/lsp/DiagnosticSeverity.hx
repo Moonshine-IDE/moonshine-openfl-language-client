@@ -28,8 +28,23 @@ package moonshine.lsp;
 **/
 @:enum
 abstract DiagnosticSeverity(Int) from Int to Int {
+	/**
+		Reports an error.
+	**/
 	var Error = 1;
+
+	/**
+		Reports a warning.
+	**/
 	var Warning = 2;
+
+	/**
+		Reports an information.
+	**/
 	var Information = 3;
+
+	/**
+		Reports a hint.
+	**/
 	var Hint = 4;
 }

@@ -30,12 +30,52 @@ package moonshine.lsp;
 class DocumentSymbol {
 	public static final FIELD_CHILDREN:String = "children";
 
+	/**
+		The name of this symbol. Will be displayed in the user interface and
+		therefore must not be an empty string or a string only consisting of
+		white spaces.
+	**/
 	public var name:String;
+
+	/**
+		More detail for this symbol, e.g the signature of a function.
+	**/
 	public var detail:String;
+
+	/**
+		The kind of this symbol.
+	**/
 	public var kind:SymbolKind;
+
+	/**
+		Tags for this document symbol.
+	**/
+	public var tags:Array<SymbolTag>;
+
+	/**
+		Indicates if this symbol is deprecated.
+
+		Deprecated. Use tags instead
+	**/
 	public var deprecated:Bool;
+
+	/**
+		The range enclosing this symbol not including leading/trailing
+		whitespace but everything else like comments. This information is
+		typically used to determine if the clients cursor is inside the symbol
+		to reveal in the symbol in the UI.
+	**/
 	public var range:Range;
+
+	/**
+		The range that should be selected and revealed when this symbol is being
+		picked, e.g. the name of a function. Must be contained by the `range`.
+	**/
 	public var selectionRange:Range;
+
+	/**
+		Children of this symbol, e.g. properties of a class.
+	**/
 	public var children:Array<DocumentSymbol>;
 
 	public function new() {}

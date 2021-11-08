@@ -29,13 +29,13 @@ package moonshine.lsp;
 @:structInit
 class Range {
 	/**
-	 * The range's start position.
-	 */
+		The range's start position.
+	**/
 	public var start:Position;
 
 	/**
-	 * The range's end position.
-	 */
+		The range's end position.
+	**/
 	public var end:Position;
 
 	public function new(start:Position = null, end:Position = null) {

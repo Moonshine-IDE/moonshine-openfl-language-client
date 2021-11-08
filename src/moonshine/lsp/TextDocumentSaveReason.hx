@@ -28,7 +28,19 @@ package moonshine.lsp;
 **/
 @:enum
 abstract TextDocumentSaveReason(Int) from Int to Int {
+	/**
+		Manually triggered, e.g. by the user pressing save, by starting
+		debugging, or by an API call.
+	**/
 	var Manual = 1;
+
+	/**
+		Automatic after a delay.
+	**/
 	var AfterDelay = 2;
+
+	/**
+		When the editor lost focus.
+	**/
 	var FocusOut = 3;
 }

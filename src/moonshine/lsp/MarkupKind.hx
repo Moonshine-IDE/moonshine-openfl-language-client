@@ -28,6 +28,13 @@ package moonshine.lsp;
 **/
 @:enum
 abstract MarkupKind(String) from String to String {
+	/**
+		Plain text is supported as a content format
+	**/
 	var PlainText = "plaintext";
+
+	/**
+		Markdown is supported as a content format
+	**/
 	var Markdown = "markdown";
 }

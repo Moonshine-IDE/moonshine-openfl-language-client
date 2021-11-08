@@ -27,6 +27,13 @@ package moonshine.lsp;
 	@see https://microsoft.github.io/language-server-protocol/specification#workspace_didChangeWorkspaceFolders
 **/
 typedef WorkspaceFoldersChangeEvent = {
+	/**
+		The array of added workspace folders
+	**/
 	added:Array<WorkspaceFolder>,
+
+	/**
+		The array of the removed workspace folders
+	**/
 	removed:Array<WorkspaceFolder>,
 }

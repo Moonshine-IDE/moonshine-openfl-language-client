@@ -29,6 +29,13 @@ import moonshine.lsp.TextDocumentIdentifier;
 	@see https://microsoft.github.io/language-server-protocol/specification#textDocument_willSave
 **/
 typedef WillSaveTextDocumentParams = {
+	/**
+		The document that will be saved.
+	**/
 	textDocument:TextDocumentIdentifier,
+
+	/**
+		The reason why the text document is saved.
+	**/
 	?reason:TextDocumentSaveReason,
 }

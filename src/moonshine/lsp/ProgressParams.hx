@@ -33,7 +33,14 @@ class ProgressParams {
 		this.value = value;
 	}
 
+	/**
+		The progress token provided by the client or server.
+	**/
 	public var token:Any /* Int | String */;
+
+	/**
+		The progress data.
+	**/
 	public var value:Any;
 
 	public static function parse(jsonParams:Any):ProgressParams {

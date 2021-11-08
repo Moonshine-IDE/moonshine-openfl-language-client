@@ -20,7 +20,23 @@ package moonshine.lsp;
 import moonshine.lsp.Position;
 import moonshine.lsp.TextDocumentIdentifier;
 
+/**
+	Implementation of `TextDocumentPositionParams` enumerationfrom Language Server Protocol
+
+	**DO NOT** add new properties or methods to this class that are specific to
+	Moonshine IDE or to a particular language. Create a subclass for new
+	properties or create a utility function for methods.
+
+	@see https://microsoft.github.io/language-server-protocol/specification#textDocumentPositionParams
+**/
 typedef TextDocumentPositionParams = {
+	/**
+		The text document.
+	**/
 	textDocument:TextDocumentIdentifier,
+
+	/**
+		The position inside the text document.
+	**/
 	position:Position,
 }

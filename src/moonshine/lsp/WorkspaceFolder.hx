@@ -27,6 +27,14 @@ package moonshine.lsp;
 	@see https://microsoft.github.io/language-server-protocol/specification#workspace_workspaceFolders
 **/
 typedef WorkspaceFolder = {
+	/**
+		The name of the workspace folder. Used to refer to this workspace folder
+		in the user interface.
+	**/
 	name:String,
+
+	/**
+		The associated URI for this workspace folder.
+	**/
 	uri:String,
 }

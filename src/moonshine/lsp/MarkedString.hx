@@ -27,6 +27,13 @@ package moonshine.lsp;
 	@see https://microsoft.github.io/language-server-protocol/specification#textDocument_hover
 **/
 typedef MarkedString = {
+	/**
+		The language of the string
+	**/
 	language:String,
+
+	/**
+		The value of the string
+	**/
 	value:String,
 }

@@ -29,5 +29,9 @@ package moonshine.lsp;
 typedef DocumentSymbolParams = {
 	> WorkDoneProgressParams,
 	> PartialResultParams,
+
+	/**
+		The text document.
+	**/
 	textDocument:TextDocumentIdentifier,
 }

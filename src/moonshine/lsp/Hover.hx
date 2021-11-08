@@ -30,7 +30,15 @@ package moonshine.lsp;
 class Hover {
 	private static final FIELD_RANGE:String = "range";
 
+	/**
+		An optional range is a range inside a text document that is used to
+		visualize a hover, e.g. by changing the background color.
+	**/
 	public var range:Range;
+
+	/**
+		The hover's content
+	**/
 	public var contents:Any; /* String | Array<String> | MarkedString | Array<MarkedString> | MarkupContent */
 
 	public function new() {}

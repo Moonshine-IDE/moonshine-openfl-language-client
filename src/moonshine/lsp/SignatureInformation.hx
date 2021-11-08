@@ -33,9 +33,27 @@ class SignatureInformation {
 	private static final FIELD_DOCUMENTATION:String = "documentation";
 	private static final FIELD_ACTIVE_PARAMETER:String = "activeParameter";
 
+	/**
+		The label of this signature. Will be shown in the UI.
+	**/
 	public var label:String = "";
+
+	/**
+		The parameters of this signature.
+	**/
 	public var parameters:Array<ParameterInformation>;
+
+	/**
+		The index of the active parameter.
+
+		If provided, this is used in place of `SignatureHelp.activeParameter`.
+	**/
 	public var activeParameter:Int = -1;
+
+	/**
+		The human-readable doc-comment of this signature. Will be shown in the
+		UI but can be omitted.
+	**/
 	public var documentation:Any /* String | MarkupContent */ = null;
 
 	public function new() {}

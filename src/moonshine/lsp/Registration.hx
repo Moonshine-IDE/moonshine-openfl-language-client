@@ -34,8 +34,20 @@ class Registration {
 		this.registerOptions = registerOptions;
 	}
 
+	/**
+		The id used to register the request. The id can be used to deregister
+		the request again.
+	**/
 	public var id:String;
+
+	/**
+		The method / capability to register for.
+	**/
 	public var method:String;
+
+	/**
+		Options necessary for the registration.
+	**/
 	public var registerOptions:Null<Any>;
 
 	public static function parse(jsonParams:Any):Registration {

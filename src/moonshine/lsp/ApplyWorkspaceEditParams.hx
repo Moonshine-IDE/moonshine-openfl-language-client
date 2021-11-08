@@ -33,7 +33,16 @@ class ApplyWorkspaceEditParams {
 		this.label = label;
 	}
 
+	/**
+		An optional label of the workspace edit. This label is
+		presented in the user interface for example on an undo
+		stack to undo the workspace edit.
+	**/
 	public var label:Null<String>;
+
+	/**
+		The edits to apply.
+	**/
 	public var edit:WorkspaceEdit;
 
 	public static function parse(jsonParams:Any):ApplyWorkspaceEditParams {

@@ -29,6 +29,14 @@ import moonshine.lsp.TextDocumentIdentifier;
 	@see https://microsoft.github.io/language-server-protocol/specification#textDocument_didSave
 **/
 typedef DidSaveTextDocumentParams = {
+	/**
+		The document that was saved.
+	**/
 	textDocument:TextDocumentIdentifier,
+
+	/**
+		Optional the content when saved. Depends on the includeText value
+		when the save notification was requested.
+	**/
 	?text:String,
 }

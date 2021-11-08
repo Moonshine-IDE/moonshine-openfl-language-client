@@ -29,11 +29,48 @@ package moonshine.lsp;
 **/
 @:structInit
 class SymbolInformation {
+	/**
+		The name of this symbol.
+	**/
 	public var name:String;
+
+	/**
+		The name of the symbol containing this symbol. This information is for
+		user interface purposes (e.g. to render a qualifier in the user
+		interface if necessary). It can't be used to re-infer a hierarchy for
+		the document symbols.
+	**/
 	public var containerName:String;
+
+	/**
+		The kind of this symbol.
+	**/
 	public var kind:SymbolKind;
+
+	/**
+		Indicates if this symbol is deprecated.
+
+		Deprecated. Use `tags` instead.
+	**/
 	public var deprecated:Bool;
+
+	/**
+		The location of this symbol. The location's range is used by a tool to
+		reveal the location in the editor. If the symbol is selected in the tool
+		the range's start information is used to position the cursor. So the
+		range usually spans more then the actual symbol's name and does normally
+		include things like visibility modifiers.
+
+		The range doesn't have to denote a node range in the sense of a abstract
+		syntax tree. It can therefore not be used to re-construct a hierarchy of
+		the symbols.
+	**/
 	public var location:Location;
+
+	/**
+		Tags for this symbol.
+	**/
+	public var tags:Array<SymbolTag>;
 
 	public function new() {}
 

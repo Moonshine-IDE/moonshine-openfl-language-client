@@ -32,6 +32,9 @@ class RegistrationParams {
 		this.registrations = registrations;
 	}
 
+	/**
+		The registrations.
+	**/
 	public var registrations:Array<Registration>;
 
 	public static function parse(jsonParams:Any):RegistrationParams {

@@ -27,5 +27,8 @@ package moonshine.lsp;
 	@see https://microsoft.github.io/language-server-protocol/specification#textDocument_references
 **/
 typedef ReferenceContext = {
+	/**
+		Include the declaration of the current symbol.
+	**/
 	includeDeclaration:Bool,
 }

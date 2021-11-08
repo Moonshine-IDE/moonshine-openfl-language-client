@@ -28,5 +28,9 @@ package moonshine.lsp;
 **/
 @:enum
 abstract PrepareSupportDefaultBehavior(Int) from Int to Int {
+	/**
+		The client's default behavior is to select the identifier according the
+		to language's syntax rule.
+	**/
 	var Identifier = 1;
 }

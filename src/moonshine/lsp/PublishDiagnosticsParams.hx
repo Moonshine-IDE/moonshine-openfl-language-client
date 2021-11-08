@@ -34,8 +34,20 @@ class PublishDiagnosticsParams {
 		this.diagnostics = diagnostics;
 	}
 
+	/**
+		The URI for which diagnostic information is reported.
+	**/
 	public var uri:String;
+
+	/**
+		Optional the version number of the document the diagnostics are
+		published for.
+	**/
 	public var version:Null<Int> = null;
+
+	/**
+		An array of diagnostic information items.
+	**/
 	public var diagnostics:Array<Diagnostic>;
 
 	public static function parse(jsonParams:Any):PublishDiagnosticsParams {

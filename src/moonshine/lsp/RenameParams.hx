@@ -31,5 +31,10 @@ import moonshine.lsp.TextDocumentPositionParams;
 typedef RenameParams = {
 	> TextDocumentPositionParams,
 	> WorkDoneProgressParams,
+
+	/**
+		The new name of the symbol. If the given name is not valid the
+		request must return a 1ResponseError1 with an appropriate message set.
+	**/
 	newName:String,
 }

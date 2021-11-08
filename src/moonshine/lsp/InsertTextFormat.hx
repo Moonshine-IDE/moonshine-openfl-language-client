@@ -28,6 +28,18 @@ package moonshine.lsp;
 **/
 @:enum
 abstract InsertTextFormat(Int) from Int to Int {
+	/**
+		The primary text to be inserted is treated as a plain string.
+	**/
 	var PlainText = 1;
+
+	/**
+		The primary text to be inserted is treated as a snippet.
+
+		A snippet can define tab stops and placeholders with `$1`, `$2`
+		and `${3:foo}`. `$0` defines the final tab stop, it defaults to
+		the end of the snippet. Placeholders with equal identifiers are linked,
+		that is typing in one will update others too.
+	**/
 	var Snippet = 2;
 }

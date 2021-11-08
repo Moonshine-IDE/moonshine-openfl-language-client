@@ -20,20 +20,57 @@ package moonshine.lsp.events;
 import openfl.events.EventType;
 import openfl.events.Event;
 
+/**
+	Events dispatched by the `LanguageClient` when certain notifications are
+	received.
+**/
 class LspNotificationEvent<T> extends Event {
+	/**
+		Dispatched when a message should be logged.
+	**/
 	public static final LOG_MESSAGE:EventType<LspNotificationEvent<LogMessageParams>> = "logMessage";
+
+	/**
+		Dispatched when a message box should be shown.
+	**/
 	public static final SHOW_MESSAGE:EventType<LspNotificationEvent<ShowMessageParams>> = "showMessage";
+
+	/**
+		Dispatched when a capability is registered.
+	**/
 	public static final REGISTER_CAPABILITY:EventType<LspNotificationEvent<RegistrationParams>> = "registerCapability";
+
+	/**
+		Dispatched when a capability is unregistered.
+	**/
 	public static final UNREGISTER_CAPABILITY:EventType<LspNotificationEvent<RegistrationParams>> = "unregisterCapability";
+
+	/**
+		Dispatched when a workspace edit should be applied.
+	**/
 	public static final APPLY_EDIT:EventType<LspNotificationEvent<ApplyWorkspaceEditParams>> = "applyEdit";
+
+	/**
+		Dispatched when a progress notification is received.
+	**/
 	public static final PROGRESS:EventType<LspNotificationEvent<ProgressParams>> = "progress";
+
+	/**
+		Dispatched when diagnostics should be published.
+	**/
 	public static final PUBLISH_DIAGNOSTICS:EventType<LspNotificationEvent<PublishDiagnosticsParams>> = "publishDiagnostics";
 
+	/**
+		Creates a new `LspNotificationEvent` object.
+	**/
 	public function new(type:EventType<LspNotificationEvent<T>>, params:T) {
 		super(type);
 		this.params = params;
 	}
 
+	/**
+		The parameters received with the notification.
+	**/
 	public var params:T;
 
 	override public function clone():Event {

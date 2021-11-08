@@ -17,6 +17,18 @@
 
 package moonshine.lsp;
 
+/**
+	Implementation of `WorkDoneProgressParams` interface from Language Server Protocol
+
+	**DO NOT** add new properties or methods to this class that are specific to
+	Moonshine IDE or to a particular language. Create a subclass for new
+	properties or create a utility function for methods.
+	 
+	@see https://microsoft.github.io/language-server-protocol/specification#initiatingWorkDoneProgress
+**/
 typedef WorkDoneProgressParams = {
+	/**
+		An optional token that a server can use to report work done progress.
+	**/
 	?workDoneToken:Any /* Int | String */,
 }

@@ -28,8 +28,23 @@ package moonshine.lsp;
 **/
 @:enum
 abstract MessageType(Int) from Int to Int {
+	/**
+		An error message.
+	**/
 	var Error = 1;
+
+	/**
+		A warning message.
+	**/
 	var Warning = 2;
+
+	/**
+		An information message.
+	**/
 	var Info = 3;
+
+	/**
+		A log message.
+	**/
 	var Log = 4;
 }

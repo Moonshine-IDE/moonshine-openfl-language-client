@@ -91,6 +91,9 @@ class LanguageClient extends EventDispatcher {
 	private static final METHOD_TELEMETRY__EVENT:String = "telemetry/event";
 	private static final METHOD_COMPLETION_ITEM__RESOLVE:String = "completionItem/resolve";
 
+	/**
+		Creates a new `LanguageClient` object.
+	**/
 	public function new(languageId:String, input:IDataInput, inputDispatcher:IEventDispatcher, inputEventType:String, output:IDataOutput,
 			?outputFlushCallback:() -> Void) {
 		super();
@@ -102,10 +105,16 @@ class LanguageClient extends EventDispatcher {
 		_outputFlushCallback = outputFlushCallback;
 	}
 
+	/**
+		Indicates if debug messages should be logged to the debug console.
+	**/
 	public var debugMode:Bool = false;
 
 	private var _languageId:String;
 
+	/**
+		The language identifier.
+	**/
 	@:flash.property
 	public var languageId(get, never):String;
 
@@ -115,6 +124,10 @@ class LanguageClient extends EventDispatcher {
 
 	private var _initialized:Bool = false;
 
+	/**
+		Indicates if the language client is fully initialized. Some messages
+		cannot be sent until initialization is complete.
+	**/
 	@:flash.property
 	public var initialized(get, never):Bool;
 
@@ -124,6 +137,9 @@ class LanguageClient extends EventDispatcher {
 
 	private var _initializeID:Int = -1;
 
+	/**
+		Indicates if the language client is currently initializing.
+	**/
 	@:flash.property
 	public var initializing(get, never):Bool;
 
@@ -133,6 +149,9 @@ class LanguageClient extends EventDispatcher {
 
 	private var _stopped:Bool = false;
 
+	/**
+		Indicates if the language client is stopped.
+	**/
 	@:flash.property
 	public var stopped(get, never):Bool;
 
@@ -142,6 +161,9 @@ class LanguageClient extends EventDispatcher {
 
 	private var _shutdownID:Int = -1;
 
+	/**
+		Indicates if the language client is currently stopping.
+	**/
 	@:flash.property
 	public var stopping(get, never):Bool;
 
@@ -151,6 +173,9 @@ class LanguageClient extends EventDispatcher {
 
 	private var _serverCapabilities:ServerCapabilities;
 
+	/**
+		Returns the capabilities of the language server.
+	**/
 	public var serverCapabilities(get, never):ServerCapabilities;
 
 	private function get_serverCapabilities():ServerCapabilities {
@@ -218,6 +243,9 @@ class LanguageClient extends EventDispatcher {
 	private var _uriSchemes:Array<String> = [];
 	private var _workspaceFolders:Array<WorkspaceFolder> = [];
 
+	/**
+		Sends an initialize request.
+	**/
 	public function initialize(params:InitializeParams):Void {
 		if (_calledStart) {
 			return;
@@ -234,6 +262,9 @@ class LanguageClient extends EventDispatcher {
 		_initializeID = sendRequest(METHOD_INITIALIZE, params);
 	}
 
+	/**
+		Sends a request to add a workspace folder.
+	**/
 	public function addWorkspaceFolder(workspaceFolder:WorkspaceFolder):Void {
 		var index = _workspaceFolders.indexOf(workspaceFolder);
 		if (index != -1) {
@@ -254,6 +285,9 @@ class LanguageClient extends EventDispatcher {
 		sendNotification(METHOD_WORKSPACE__DID_CHANGE_WORKSPACE_FOLDERS, params);
 	}
 
+	/**
+		Sends a request to remove a workspace folder.
+	**/
 	public function removeWorkspaceFolder(workspaceFolder:WorkspaceFolder):Void {
 		var index = _workspaceFolders.indexOf(workspaceFolder);
 		if (index == -1) {
@@ -274,6 +308,9 @@ class LanguageClient extends EventDispatcher {
 		sendNotification(METHOD_WORKSPACE__DID_CHANGE_WORKSPACE_FOLDERS, params);
 	}
 
+	/**
+		Sends a shutdown request.
+	**/
 	public function shutdown():Void {
 		if (!_initialized || _stopped || _shutdownID != -1) {
 			return;
@@ -282,10 +319,16 @@ class LanguageClient extends EventDispatcher {
 		_shutdownID = sendRequest(METHOD_SHUTDOWN, null);
 	}
 
+	/**
+		Registers an URI scheme.
+	**/
 	public function registerUriScheme(uriScheme:String):Void {
 		_uriSchemes.push(uriScheme);
 	}
 
+	/**
+		Sends a didOpen request.
+	**/
 	public function didOpen(params:DidOpenTextDocumentParams):Void {
 		if (!_initialized || _stopped || _shutdownID != -1) {
 			return;
@@ -293,6 +336,9 @@ class LanguageClient extends EventDispatcher {
 		sendNotification(METHOD_TEXT_DOCUMENT__DID_OPEN, params);
 	}
 
+	/**
+		Sends a didClose request.
+	**/
 	public function didClose(params:DidCloseTextDocumentParams):Void {
 		if (!_initialized || _stopped || _shutdownID != -1) {
 			return;
@@ -300,6 +346,9 @@ class LanguageClient extends EventDispatcher {
 		sendNotification(METHOD_TEXT_DOCUMENT__DID_CLOSE, params);
 	}
 
+	/**
+		Sends a didChange request.
+	**/
 	public function didChange(params:DidChangeTextDocumentParams):Void {
 		if (!_initialized || _stopped || _shutdownID != -1) {
 			return;
@@ -307,6 +356,9 @@ class LanguageClient extends EventDispatcher {
 		sendNotification(METHOD_TEXT_DOCUMENT__DID_CHANGE, params);
 	}
 
+	/**
+		Sends a willSave request.
+	**/
 	public function willSave(params:WillSaveTextDocumentParams):Void {
 		if (!_initialized || _stopped || _shutdownID != -1) {
 			return;
@@ -314,6 +366,9 @@ class LanguageClient extends EventDispatcher {
 		sendNotification(METHOD_TEXT_DOCUMENT__WILL_SAVE, params);
 	}
 
+	/**
+		Sends a didSave request.
+	**/
 	public function didSave(params:DidSaveTextDocumentParams):Void {
 		if (!_initialized || _stopped || _shutdownID != -1) {
 			return;
@@ -321,6 +376,9 @@ class LanguageClient extends EventDispatcher {
 		sendNotification(METHOD_TEXT_DOCUMENT__DID_SAVE, params);
 	}
 
+	/**
+		Sends a completion request.
+	**/
 	public function completion(params:CompletionParams, callback:(Null<CompletionList>) -> Void):Void {
 		if (!_initialized || _stopped || _shutdownID != -1) {
 			return;
@@ -334,6 +392,9 @@ class LanguageClient extends EventDispatcher {
 		_completionLookup[id] = new ParamsAndCallback(params, callback);
 	}
 
+	/**
+		Sends a resolveCompletion request.
+	**/
 	public function resolveCompletion(item:CompletionItem, callback:(CompletionItem) -> Void):Void {
 		if (!_initialized || _stopped || _shutdownID != -1) {
 			return;
@@ -347,6 +408,9 @@ class LanguageClient extends EventDispatcher {
 		_resolveCompletionLookup[id] = new ParamsAndCallback(item, callback);
 	}
 
+	/**
+		Sends a signatureHelp request.
+	**/
 	public function signatureHelp(params:SignatureHelpParams, callback:(Null<SignatureHelp>) -> Void):Void {
 		if (!_initialized || _stopped || _shutdownID != -1) {
 			return;
@@ -360,6 +424,9 @@ class LanguageClient extends EventDispatcher {
 		_signatureHelpLookup[id] = new ParamsAndCallback(params, callback);
 	}
 
+	/**
+		Sends a hover request.
+	**/
 	public function hover(params:HoverParams, callback:(Null<Hover>) -> Void):Void {
 		if (!_initialized || _stopped || _shutdownID != -1) {
 			return;
@@ -373,6 +440,9 @@ class LanguageClient extends EventDispatcher {
 		_hoverLookup[id] = new ParamsAndCallback(params, callback);
 	}
 
+	/**
+		Sends a definition request.
+	**/
 	public function definition(params:DefinitionParams, callback:(Null<Array<Any>>) -> Void):Void {
 		if (!_initialized || _stopped || _shutdownID != -1) {
 			return;
@@ -386,6 +456,9 @@ class LanguageClient extends EventDispatcher {
 		_definitionLookup[id] = new ParamsAndCallback(params, callback);
 	}
 
+	/**
+		Sends a typeDefinition request.
+	**/
 	public function typeDefinition(params:TypeDefinitionParams, callback:(Null<Array<Any>>) -> Void):Void {
 		if (!_initialized || _stopped || _shutdownID != -1) {
 			return;
@@ -399,6 +472,9 @@ class LanguageClient extends EventDispatcher {
 		_typeDefinitionLookup[id] = new ParamsAndCallback(params, callback);
 	}
 
+	/**
+		Sends an implementation request.
+	**/
 	public function implementation(params:ImplementationParams, callback:(Null<Array<Any>>) -> Void):Void {
 		if (!_initialized || _stopped || _shutdownID != -1) {
 			return;
@@ -412,6 +488,9 @@ class LanguageClient extends EventDispatcher {
 		_implementationLookup[id] = new ParamsAndCallback(params, callback);
 	}
 
+	/**
+		Sends a refereces request.
+	**/
 	public function references(params:ReferenceParams, callback:(Null<Array<Location>>) -> Void):Void {
 		if (!_initialized || _stopped || _shutdownID != -1) {
 			return;
@@ -425,6 +504,9 @@ class LanguageClient extends EventDispatcher {
 		_referencesLookup[id] = new ParamsAndCallback(params, callback);
 	}
 
+	/**
+		Sends a documentSymbols request.
+	**/
 	public function documentSymbols(params:DocumentSymbolParams, callback:(Null<Array<Any>>) -> Void):Void {
 		if (!_initialized || _stopped || _shutdownID != -1) {
 			return;
@@ -438,6 +520,9 @@ class LanguageClient extends EventDispatcher {
 		_documentSymbolsLookup[id] = new ParamsAndCallback(params, callback);
 	}
 
+	/**
+		Sends a workspaceSymbols request.
+	**/
 	public function workspaceSymbols(params:WorkspaceSymbolParams, callback:(Null<Array<SymbolInformation>>) -> Void):Void {
 		if (!_initialized || _stopped || _shutdownID != -1) {
 			return;
@@ -451,6 +536,9 @@ class LanguageClient extends EventDispatcher {
 		_workspaceSymbolsLookup[id] = new ParamsAndCallback(params, callback);
 	}
 
+	/**
+		Sends a codeAction request.
+	**/
 	public function codeAction(params:CodeActionParams, callback:(Null<Array<CodeAction>>) -> Void):Void {
 		if (!_initialized || _stopped || _shutdownID != -1) {
 			return;
@@ -464,6 +552,9 @@ class LanguageClient extends EventDispatcher {
 		_codeActionLookup[id] = new ParamsAndCallback(params, callback);
 	}
 
+	/**
+		Sends a rename request.
+	**/
 	public function rename(params:RenameParams, callback:(Null<WorkspaceEdit>) -> Void):Void {
 		if (!_initialized || _stopped || _shutdownID != -1) {
 			return;
@@ -477,6 +568,9 @@ class LanguageClient extends EventDispatcher {
 		_renameLookup[id] = new ParamsAndCallback(params, callback);
 	}
 
+	/**
+		Sends an executeCommand request.
+	**/
 	public function executeCommand(params:ExecuteCommandParams, callback:(Null<Any>) -> Void):Void {
 		if (!_initialized || _stopped || _shutdownID != -1) {
 			return;
@@ -496,6 +590,9 @@ class LanguageClient extends EventDispatcher {
 		_executeCommandLookup[id] = new ParamsAndCallback(params, callback);
 	}
 
+	/**
+		Registers a command.
+	**/
 	public function registerCommand(command:String, listener:Any):Void {
 		if (_registeredCommands.exists(command)) {
 			throw new ArgumentError('Command "${command}" is already registered');
@@ -503,6 +600,9 @@ class LanguageClient extends EventDispatcher {
 		_registeredCommands.set(command, listener);
 	}
 
+	/**
+		Unregisters a command.
+	**/
 	public function unregisterCommand(command:String):Void {
 		if (!_registeredCommands.exists(command)) {
 			return;
@@ -510,6 +610,10 @@ class LanguageClient extends EventDispatcher {
 		_registeredCommands.remove(command);
 	}
 
+	/**
+		Adds a listener for a notification type received from the language
+		server.
+	**/
 	public function addNotificationListener(method:String, listener:(NotificationMessage) -> Void):Void {
 		if (!_notificationListeners.exists(method)) {
 			_notificationListeners.set(method, []);
@@ -523,6 +627,10 @@ class LanguageClient extends EventDispatcher {
 		listeners.push(listener);
 	}
 
+	/**
+		Removes a listener for a notification type received from the language
+		server.
+	**/
 	public function removeNotificationListener(method:String, listener:(NotificationMessage) -> Void):Void {
 		if (!_notificationListeners.exists(method)) {
 			// nothing to remove
@@ -537,6 +645,9 @@ class LanguageClient extends EventDispatcher {
 		listeners.splice(index, 1);
 	}
 
+	/**
+		Sends a notification to the language server.
+	**/
 	public function sendNotification(method:String, params:Any):Void {
 		if (!_initialized && method != METHOD_INITIALIZE && method != METHOD_EXIT) {
 			throw new IllegalOperationError("Notification failed. Language server is not initialized. Unexpected method: " + method);

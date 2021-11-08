@@ -28,5 +28,8 @@ package moonshine.lsp;
 **/
 @:enum
 abstract TokenFormat(String) from String to String {
+	/**
+		Tokens are described using relative positions.
+	**/
 	var Relative = "relative";
 }

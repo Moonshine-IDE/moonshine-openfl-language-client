@@ -27,6 +27,15 @@ package moonshine.lsp;
 	@see https://microsoft.github.io/language-server-protocol/specification#textDocument_completion
 **/
 typedef CompletionContext = {
+	/**
+		How the completion was triggered.
+	**/
 	triggerKind:CompletionTriggerKind,
+
+	/**
+		The trigger character (a single character) that has trigger code
+		complete. Is undefined if
+		`triggerKind !== CompletionTriggerKind.TriggerCharacter`
+	**/
 	?triggerCharacter:String,
 }

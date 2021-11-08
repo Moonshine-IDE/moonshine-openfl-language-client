@@ -17,7 +17,13 @@
 
 package moonshine.lsp.utils;
 
+/**
+	Utility functions for the `moonshine.lsp.Range` type.
+**/
 class RangeUtil {
+	/**
+		Determines if two ranges intersect.
+	**/
 	public static function rangesIntersect(r1:Range, r2:Range):Bool {
 		var resultStartLine = r1.start.line;
 		var resultStartChar = r1.start.character;

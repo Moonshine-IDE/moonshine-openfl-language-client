@@ -27,5 +27,8 @@ package moonshine.lsp;
 	@see https://microsoft.github.io/language-server-protocol/specification#workspace_didChangeWorkspaceFolders
 **/
 typedef DidChangeWorkspaceFoldersParams = {
+	/**
+		The actual workspace folder change event.
+	**/
 	event:WorkspaceFoldersChangeEvent,
 }

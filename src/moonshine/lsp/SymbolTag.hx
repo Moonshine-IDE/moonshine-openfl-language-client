@@ -28,5 +28,8 @@ package moonshine.lsp;
 **/
 @:enum
 abstract SymbolTag(Int) from Int to Int {
+	/**
+		Render a symbol as obsolete, usually using a strike-out.
+	**/
 	var Deprecated = 1;
 }
