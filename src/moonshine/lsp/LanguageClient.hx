@@ -80,6 +80,7 @@ class LanguageClient extends EventDispatcher {
 	private static final METHOD_WORKSPACE__APPLY_EDIT:String = "workspace/applyEdit";
 	private static final METHOD_WORKSPACE__SYMBOL:String = "workspace/symbol";
 	private static final METHOD_WORKSPACE__EXECUTE_COMMAND:String = "workspace/executeCommand";
+	private static final METHOD_WORKSPACE__DID_CHANGE_WATCHED_FILES:String = "workspace/didChangeWatchedFiles";
 	private static final METHOD_WORKSPACE__DID_CHANGE_CONFIGURATION:String = "workspace/didChangeConfiguration";
 	private static final METHOD_WORKSPACE__DID_CHANGE_WORKSPACE_FOLDERS:String = "workspace/didChangeWorkspaceFolders";
 	private static final METHOD_WINDOW__LOG_MESSAGE:String = "window/logMessage";
@@ -306,6 +307,16 @@ class LanguageClient extends EventDispatcher {
 			}
 		};
 		sendNotification(METHOD_WORKSPACE__DID_CHANGE_WORKSPACE_FOLDERS, params);
+	}
+
+	/**
+		Sends a didChangeWatchedFiles notification.
+	**/
+	public function didChangeWatchedFiles(params:DidChangeWatchedFilesParams):Void {
+		if (!_initialized || _stopped || _shutdownID != -1) {
+			return;
+		}
+		sendNotification(METHOD_WORKSPACE__DID_CHANGE_WATCHED_FILES, params);
 	}
 
 	/**
