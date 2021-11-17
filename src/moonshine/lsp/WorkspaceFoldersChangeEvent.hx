@@ -18,7 +18,7 @@
 package moonshine.lsp;
 
 /**
-	Implementation of `event: WorkspaceFoldersChangeEvent` interface from Language Server Protocol
+	Implementation of `WorkspaceFoldersChangeEvent` interface from Language Server Protocol
 
 	**DO NOT** add new properties or methods to this class that are specific to
 	Moonshine IDE or to a particular language. Create a subclass for new
