@@ -238,6 +238,7 @@ class LanguageClient extends EventDispatcher {
 	private var supportsCodeAction:Bool = false;
 	private var supportsCodeLens:Bool = false;
 	private var supportsExecuteCommand:Bool = false;
+	private var supportsDidChangeWatchedFiles:Bool = false;
 
 	private var _registeredCommands:Map<String, Any> = [];
 	private var _notificationListeners:Map<String, Array<(message:NotificationMessage) -> Void>> = [];
@@ -313,7 +314,7 @@ class LanguageClient extends EventDispatcher {
 		Sends a didChangeWatchedFiles notification.
 	**/
 	public function didChangeWatchedFiles(params:DidChangeWatchedFilesParams):Void {
-		if (!_initialized || _stopped || _shutdownID != -1) {
+		if (!supportsDidChangeWatchedFiles || !_initialized || _stopped || _shutdownID != -1) {
 			return;
 		}
 		sendNotification(METHOD_WORKSPACE__DID_CHANGE_WATCHED_FILES, params);
@@ -1441,6 +1442,8 @@ class LanguageClient extends EventDispatcher {
 				supportsRename = enable;
 			case METHOD_TEXT_DOCUMENT__SIGNATURE_HELP:
 				supportsSignatureHelp = enable;
+			case METHOD_WORKSPACE__DID_CHANGE_WATCHED_FILES:
+				supportsDidChangeWatchedFiles = enable;
 			default:
 				trace("Error: Failed to update language server capability. Unknown method: " + method);
 		}
