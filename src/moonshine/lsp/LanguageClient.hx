@@ -17,9 +17,10 @@
 
 package moonshine.lsp;
 
-import openfl.Lib;
 import haxe.Json;
+import moonshine.lsp.UnregistrationParams;
 import moonshine.lsp.events.LspNotificationEvent;
+import openfl.Lib;
 import openfl.errors.ArgumentError;
 import openfl.errors.IllegalOperationError;
 import openfl.events.Event;
@@ -1393,59 +1394,88 @@ class LanguageClient extends EventDispatcher {
 		callback(result);
 	}
 
-	private function updateRegisteredCapability(registration:Registration, enable:Bool):Void {
+	private function registerCapability(registration:Registration):Void {
 		var method:String = registration.method;
 		switch (method) {
 			case METHOD_WORKSPACE__SYMBOL:
-				supportsWorkspaceSymbols = enable;
+				supportsWorkspaceSymbols = true;
 			case METHOD_WORKSPACE__EXECUTE_COMMAND:
-				if (enable) {
-					var registerOptions = registration.registerOptions;
-					if (registerOptions != null && Reflect.hasField(registerOptions, "commands")) {
-						var commands = Reflect.field(registerOptions, "commands");
-						supportedCommands = (commands : Array<String>);
-					} else {
-						supportedCommands = [];
-					}
+				var registerOptions = registration.registerOptions;
+				if (registerOptions != null && Reflect.hasField(registerOptions, "commands")) {
+					var commands = Reflect.field(registerOptions, "commands");
+					supportedCommands = (commands : Array<String>);
 				} else {
 					supportedCommands = [];
 				}
 			case METHOD_TEXT_DOCUMENT__CODE_ACTION:
-				supportsCodeAction = enable;
+				supportsCodeAction = true;
 			case METHOD_TEXT_DOCUMENT__CODE_LENS:
-				supportsCodeLens = enable;
+				supportsCodeLens = true;
 			case METHOD_TEXT_DOCUMENT__COMPLETION:
-				supportsCompletion = enable;
-				if (enable) {
-					var registerOptions = registration.registerOptions;
-					if (registerOptions != null && Reflect.hasField(registerOptions, "resolveProvider")) {
-						supportsResolveCompletion = Reflect.field(registerOptions, "resolveProvider") == true;
-					} else {
-						supportsResolveCompletion = false;
-					}
+				supportsCompletion = true;
+				var registerOptions = registration.registerOptions;
+				if (registerOptions != null && Reflect.hasField(registerOptions, "resolveProvider")) {
+					supportsResolveCompletion = Reflect.field(registerOptions, "resolveProvider") == true;
 				} else {
 					supportsResolveCompletion = false;
 				}
 			case METHOD_TEXT_DOCUMENT__DEFINITION:
-				supportsDefinition = enable;
+				supportsDefinition = true;
 			case METHOD_TEXT_DOCUMENT__TYPE_DEFINITION:
-				supportsTypeDefinition = enable;
+				supportsTypeDefinition = true;
 			case METHOD_TEXT_DOCUMENT__IMPLEMENTATION:
-				supportsImplementation = enable;
+				supportsImplementation = true;
 			case METHOD_TEXT_DOCUMENT__DOCUMENT_SYMBOL:
-				supportsDocumentSymbols = enable;
+				supportsDocumentSymbols = true;
 			case METHOD_TEXT_DOCUMENT__HOVER:
-				supportsHover = enable;
+				supportsHover = true;
 			case METHOD_TEXT_DOCUMENT__REFERENCES:
-				supportsReferences = enable;
+				supportsReferences = true;
 			case METHOD_TEXT_DOCUMENT__RENAME:
-				supportsRename = enable;
+				supportsRename = true;
 			case METHOD_TEXT_DOCUMENT__SIGNATURE_HELP:
-				supportsSignatureHelp = enable;
+				supportsSignatureHelp = true;
 			case METHOD_WORKSPACE__DID_CHANGE_WATCHED_FILES:
-				supportsDidChangeWatchedFiles = enable;
+				supportsDidChangeWatchedFiles = true;
 			default:
-				trace("Error: Failed to update language server capability. Unknown method: " + method);
+				trace("Error: Failed to register language server capability. Unknown method: " + method);
+		}
+	}
+
+	private function unregisterCapability(unregistration:Unregistration):Void {
+		var method:String = unregistration.method;
+		switch (method) {
+			case METHOD_WORKSPACE__SYMBOL:
+				supportsWorkspaceSymbols = false;
+			case METHOD_WORKSPACE__EXECUTE_COMMAND:
+				supportedCommands = [];
+			case METHOD_TEXT_DOCUMENT__CODE_ACTION:
+				supportsCodeAction = false;
+			case METHOD_TEXT_DOCUMENT__CODE_LENS:
+				supportsCodeLens = false;
+			case METHOD_TEXT_DOCUMENT__COMPLETION:
+				supportsCompletion = false;
+				supportsResolveCompletion = false;
+			case METHOD_TEXT_DOCUMENT__DEFINITION:
+				supportsDefinition = false;
+			case METHOD_TEXT_DOCUMENT__TYPE_DEFINITION:
+				supportsTypeDefinition = false;
+			case METHOD_TEXT_DOCUMENT__IMPLEMENTATION:
+				supportsImplementation = false;
+			case METHOD_TEXT_DOCUMENT__DOCUMENT_SYMBOL:
+				supportsDocumentSymbols = false;
+			case METHOD_TEXT_DOCUMENT__HOVER:
+				supportsHover = false;
+			case METHOD_TEXT_DOCUMENT__REFERENCES:
+				supportsReferences = false;
+			case METHOD_TEXT_DOCUMENT__RENAME:
+				supportsRename = false;
+			case METHOD_TEXT_DOCUMENT__SIGNATURE_HELP:
+				supportsSignatureHelp = false;
+			case METHOD_WORKSPACE__DID_CHANGE_WATCHED_FILES:
+				supportsDidChangeWatchedFiles = false;
+			default:
+				trace("Error: Failed to unregister language server capability. Unknown method: " + method);
 		}
 	}
 
@@ -1465,16 +1495,16 @@ class LanguageClient extends EventDispatcher {
 		var jsonParams:Any = Reflect.field(jsonObject, "params");
 		var params = RegistrationParams.parse(jsonParams);
 		for (registration in params.registrations) {
-			updateRegisteredCapability(registration, true);
+			registerCapability(registration);
 		}
 		dispatchEvent(new LspNotificationEvent(LspNotificationEvent.REGISTER_CAPABILITY, params));
 	}
 
 	private function client__unregisterCapability(jsonObject:Dynamic):Void {
 		var jsonParams:Any = Reflect.field(jsonObject, "params");
-		var params = RegistrationParams.parse(jsonParams);
-		for (registration in params.registrations) {
-			updateRegisteredCapability(registration, false);
+		var params = UnregistrationParams.parse(jsonParams);
+		for (unregistration in params.unregistrations) {
+			unregisterCapability(unregistration);
 		}
 		dispatchEvent(new LspNotificationEvent(LspNotificationEvent.UNREGISTER_CAPABILITY, params));
 	}

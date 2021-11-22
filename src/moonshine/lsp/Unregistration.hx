@@ -18,43 +18,36 @@
 package moonshine.lsp;
 
 /**
-	Implementation of `Registration` interface from Language Server Protocol
+	Implementation of `Unegistration` interface from Language Server Protocol
 
 	**DO NOT** add new properties or methods to this class that are specific to
 	Moonshine IDE or to a particular language. Create a subclass for new
 	properties or create a utility function for methods.
 
-	@see https://microsoft.github.io/language-server-protocol/specification#client_registerCapability
+	@see https://microsoft.github.io/language-server-protocol/specification#client_unregisterCapability
 **/
 @:structInit
-class Registration {
-	public function new(id:String, method:String, ?registerOptions:Any) {
+class Unregistration {
+	public function new(id:String, method:String) {
 		this.id = id;
 		this.method = method;
-		this.registerOptions = registerOptions;
 	}
 
 	/**
-		The id used to register the request. The id can be used to deregister
-		the request again.
+		The id used to unregister the request or notification. Usually an id
+		provided during the register request.
 	**/
 	public var id:String;
 
 	/**
-		The method / capability to register for.
+		The method / capability to unregister for.
 	**/
 	public var method:String;
 
-	/**
-		Options necessary for the registration.
-	**/
-	public var registerOptions:Null<Any>;
-
-	public static function parse(jsonParams:Any):Registration {
+	public static function parse(jsonParams:Any):Unregistration {
 		return {
 			id: Reflect.field(jsonParams, "id"),
 			method: Reflect.field(jsonParams, "method"),
-			registerOptions: Reflect.hasField(jsonParams, "registerOptions") ? Reflect.field(jsonParams, "registerOptions") : null
 		};
 	}
 }

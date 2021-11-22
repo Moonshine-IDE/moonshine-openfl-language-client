@@ -43,7 +43,7 @@ class LspNotificationEvent<T> extends Event {
 	/**
 		Dispatched when a capability is unregistered.
 	**/
-	public static final UNREGISTER_CAPABILITY:EventType<LspNotificationEvent<RegistrationParams>> = "unregisterCapability";
+	public static final UNREGISTER_CAPABILITY:EventType<LspNotificationEvent<UnregistrationParams>> = "unregisterCapability";
 
 	/**
 		Dispatched when a workspace edit should be applied.

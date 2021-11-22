@@ -18,43 +18,33 @@
 package moonshine.lsp;
 
 /**
-	Implementation of `Registration` interface from Language Server Protocol
+	Implementation of `UnegistrationParams` interface from Language Server Protocol
 
 	**DO NOT** add new properties or methods to this class that are specific to
 	Moonshine IDE or to a particular language. Create a subclass for new
 	properties or create a utility function for methods.
 
-	@see https://microsoft.github.io/language-server-protocol/specification#client_registerCapability
+	@see https://microsoft.github.io/language-server-protocol/specification#client_unregisterCapability
 **/
 @:structInit
-class Registration {
-	public function new(id:String, method:String, ?registerOptions:Any) {
-		this.id = id;
-		this.method = method;
-		this.registerOptions = registerOptions;
+class UnregistrationParams {
+	public function new(unregistrations:Array<Unregistration>) {
+		this.unregistrations = unregistrations;
 	}
 
 	/**
-		The id used to register the request. The id can be used to deregister
-		the request again.
+		The unregistrations.
 	**/
-	public var id:String;
+	public var unregistrations:Array<Unregistration>;
 
-	/**
-		The method / capability to register for.
-	**/
-	public var method:String;
-
-	/**
-		Options necessary for the registration.
-	**/
-	public var registerOptions:Null<Any>;
-
-	public static function parse(jsonParams:Any):Registration {
+	public static function parse(jsonParams:Any):UnregistrationParams {
+		// unregisterations is correct. the language server protocol
+		// specification includes the typo. it may be fixed in a future major
+		// version of the specification, but it remains for now.
+		var jsonUnregistrations:Array<Any> = Reflect.field(jsonParams, "unregisterations");
+		var unregistrations = jsonUnregistrations.map(jsonResult -> Unregistration.parse(jsonResult));
 		return {
-			id: Reflect.field(jsonParams, "id"),
-			method: Reflect.field(jsonParams, "method"),
-			registerOptions: Reflect.hasField(jsonParams, "registerOptions") ? Reflect.field(jsonParams, "registerOptions") : null
+			unregistrations: unregistrations
 		};
 	}
 }
