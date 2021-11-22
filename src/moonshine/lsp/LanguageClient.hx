@@ -192,7 +192,6 @@ class LanguageClient extends EventDispatcher {
 
 	private var _calledStart:Bool = false;
 	private var _requestID:Int = 0;
-	private var _documentVersion:Int = 1;
 	private var _contentLength:Int = -1;
 	private var _socketBuffer:String = "";
 	private var _socketBytes:ByteArray = new ByteArray();
