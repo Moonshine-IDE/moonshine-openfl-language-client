@@ -178,6 +178,7 @@ class LanguageClient extends EventDispatcher {
 	/**
 		Returns the capabilities of the language server.
 	**/
+	@:flash.property
 	public var serverCapabilities(get, never):ServerCapabilities;
 
 	private function get_serverCapabilities():ServerCapabilities {
