@@ -220,32 +220,4 @@ class CompletionItem {
 		}
 		return item;
 	}
-
-	public function toJSON(key:String):Any {
-		var result:Dynamic = {};
-		result.label = this.label;
-		result.kind = this.kind;
-		result.deprecated = this.deprecated;
-		result.insertTextFormat = this.insertTextFormat;
-		if (this.detail != null) {
-			result.detail = this.detail;
-		}
-		if (this.documentation != null) {
-			result.documentation = this.documentation;
-		}
-		if (this.command != null) {
-			result.command = this.command;
-		}
-		if (this.data != null) {
-			result.data = this.data;
-		}
-		if (this.additionalTextEdits != null) {
-			var additionalTextEdits:Array<TextEdit> = [];
-			for (textEdit in this.additionalTextEdits) {
-				additionalTextEdits.push(textEdit);
-			}
-			result.additionalTextEdits = additionalTextEdits;
-		}
-		return result;
-	}
 }
