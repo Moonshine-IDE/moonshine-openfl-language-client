@@ -34,6 +34,7 @@ class CompletionItem {
 	private static final FIELD_LABEL:String = "label";
 	private static final FIELD_INSERT_TEXT:String = "insertText";
 	private static final FIELD_SORT_TEXT:String = "sortText";
+	private static final FIELD_FILTER_TEXT:String = "filterText";
 	private static final FIELD_DOCUMENTATION:String = "documentation";
 	private static final FIELD_DETAIL:String = "detail";
 	private static final FIELD_DEPRECATED:String = "deprecated";
@@ -58,6 +59,13 @@ class CompletionItem {
 		as the sort text for this item.
 	**/
 	public var sortText:String;
+
+	/**
+		A string that should be used when filtering a set of
+		completion items. When `falsy` the label is used as the
+		filter text for this item.
+	**/
+	public var filterText:String;
 
 	/**
 		The kind of this completion item. Based of the kind
@@ -164,6 +172,9 @@ class CompletionItem {
 		}
 		if (Reflect.hasField(resolvedFields, FIELD_SORT_TEXT)) {
 			item.sortText = Reflect.field(resolvedFields, FIELD_SORT_TEXT);
+		}
+		if (Reflect.hasField(resolvedFields, FIELD_FILTER_TEXT)) {
+			item.filterText = Reflect.field(resolvedFields, FIELD_FILTER_TEXT);
 		}
 		if (Reflect.hasField(resolvedFields, FIELD_INSERT_TEXT)) {
 			item.insertText = Reflect.field(resolvedFields, FIELD_INSERT_TEXT);
