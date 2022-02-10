@@ -27,6 +27,9 @@ package moonshine.lsp;
 	@see https://microsoft.github.io/language-server-protocol/specification#diagnostic
 **/
 class Diagnostic {
+	private static final FIELD_CODE = "code";
+	private static final FIELD_SEVERITY = "severity";
+
 	public function new() {}
 
 	/**
@@ -53,9 +56,13 @@ class Diagnostic {
 	public static function parse(original:Dynamic):Diagnostic {
 		var vo = new Diagnostic();
 		vo.message = original.message;
-		vo.code = original.code;
+		if (Reflect.hasField(original, FIELD_CODE)) {
+			vo.code = Reflect.field(original, FIELD_CODE);
+		}
 		vo.range = Range.parse(original.range);
-		vo.severity = original.severity;
+		if (Reflect.hasField(original, FIELD_SEVERITY)) {
+			vo.severity = Reflect.field(original, FIELD_SEVERITY);
+		}
 		return vo;
 	}
 }

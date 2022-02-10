@@ -28,6 +28,8 @@ package moonshine.lsp;
 **/
 @:structInit
 class LocationLink {
+	private static final FIELD_ORIGIN_SELECTION_RANGE = "originSelectionRange";
+
 	/**
 		Span of the origin of this link.
 
@@ -65,8 +67,13 @@ class LocationLink {
 
 	public static function parse(original:Dynamic):LocationLink {
 		var vo = new LocationLink();
-		if (Reflect.hasField(original, "originSelectionRange")) { // optional field
-			vo.originSelectionRange = Range.parse(original.originSelectionRange);
+		if (Reflect.hasField(original, FIELD_ORIGIN_SELECTION_RANGE)) {
+			var originSelectionRangeField = Reflect.field(original, FIELD_ORIGIN_SELECTION_RANGE);
+			if (originSelectionRangeField != null) {
+				vo.originSelectionRange = Range.parse(originSelectionRangeField);
+			} else {
+				vo.originSelectionRange = null;
+			}
 		}
 		vo.targetUri = original.targetUri;
 		vo.targetRange = Range.parse(original.targetRange);

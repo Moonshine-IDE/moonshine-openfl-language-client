@@ -31,6 +31,7 @@ class CodeAction {
 	private static final FIELD_DIAGNOSTICS:String = "diagnostics";
 	private static final FIELD_EDIT:String = "edit";
 	private static final FIELD_COMMAND:String = "command";
+	private static final FIELD_KIND:String = "kind";
 
 	/**
 		A short, human-readable, title for this code action.
@@ -63,7 +64,9 @@ class CodeAction {
 	public static function parse(original:Dynamic):CodeAction {
 		var vo:CodeAction = new CodeAction();
 		vo.title = original.title;
-		vo.kind = original.kind;
+		if (Reflect.hasField(original, FIELD_KIND)) {
+			vo.kind = Reflect.field(original, FIELD_KIND);
+		}
 		if (Reflect.hasField(original, FIELD_DIAGNOSTICS)) {
 			var diagnostics:Array<Diagnostic> = [];
 			var jsonDiagnostics = Reflect.field(original, FIELD_DIAGNOSTICS);
@@ -73,10 +76,20 @@ class CodeAction {
 			vo.diagnostics = diagnostics;
 		}
 		if (Reflect.hasField(original, FIELD_EDIT)) {
-			vo.edit = WorkspaceEdit.parse(Reflect.field(original, FIELD_EDIT));
+			var editField = Reflect.field(original, FIELD_EDIT);
+			if (editField != null) {
+				vo.edit = WorkspaceEdit.parse(Reflect.field(original, FIELD_EDIT));
+			} else {
+				vo.edit = null;
+			}
 		}
 		if (Reflect.hasField(original, FIELD_COMMAND)) {
-			vo.command = Command.parse(Reflect.field(original, FIELD_COMMAND));
+			var commandField = Reflect.field(original, FIELD_COMMAND);
+			if (commandField != null) {
+				vo.command = Command.parse(commandField);
+			} else {
+				vo.command = null;
+			}
 		}
 		return vo;
 	}

@@ -29,6 +29,9 @@ package moonshine.lsp;
 **/
 @:structInit
 class SymbolInformation {
+	private static final FIELD_CONTAINER_NAME = "containerName";
+	private static final FIELD_DEPRECATED = "deprecated";
+
 	/**
 		The name of this symbol.
 	**/
@@ -78,8 +81,12 @@ class SymbolInformation {
 		var vo = new SymbolInformation();
 		vo.name = original.name;
 		vo.kind = original.kind;
-		vo.containerName = original.containerName;
-		vo.deprecated = original.deprecated;
+		if (Reflect.hasField(original, FIELD_CONTAINER_NAME)) {
+			vo.containerName = Reflect.field(original, FIELD_CONTAINER_NAME);
+		}
+		if (Reflect.hasField(original, FIELD_DEPRECATED)) {
+			vo.deprecated = Reflect.field(original, FIELD_DEPRECATED) == true;
+		}
 		vo.location = Location.parse(original.location);
 		return vo;
 	}

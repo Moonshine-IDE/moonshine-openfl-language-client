@@ -28,7 +28,9 @@ package moonshine.lsp;
 **/
 @:structInit
 class DocumentSymbol {
-	public static final FIELD_CHILDREN:String = "children";
+	private static final FIELD_CHILDREN:String = "children";
+	private static final FIELD_DETAIL:String = "detail";
+	private static final FIELD_DEPRECATED = "deprecated";
 
 	/**
 		The name of this symbol. Will be displayed in the user interface and
@@ -83,16 +85,22 @@ class DocumentSymbol {
 	public static function parse(original:Dynamic):DocumentSymbol {
 		var vo = new DocumentSymbol();
 		vo.name = original.name;
-		vo.detail = original.detail;
+		if (Reflect.hasField(original, FIELD_DETAIL)) {
+			vo.detail = Reflect.field(original, FIELD_DETAIL);
+		}
 		vo.kind = original.kind;
-		vo.deprecated = original.deprecated;
+		if (Reflect.hasField(original, FIELD_DEPRECATED)) {
+			vo.deprecated = Reflect.field(original, FIELD_DEPRECATED) == true;
+		}
 		vo.range = Range.parse(original.range);
 		vo.selectionRange = Range.parse(original.selectionRange);
 		if (Reflect.hasField(original, FIELD_CHILDREN)) {
 			var jsonChildren = Reflect.field(original, FIELD_CHILDREN);
 			var children:Array<DocumentSymbol> = [];
-			for (child in cast(jsonChildren, Array<Dynamic>)) {
-				children.push(DocumentSymbol.parse(child));
+			if (jsonChildren != null) {
+				for (child in cast(jsonChildren, Array<Dynamic>)) {
+					children.push(DocumentSymbol.parse(child));
+				}
 			}
 			vo.children = children;
 		}

@@ -167,9 +167,7 @@ class CompletionItem {
 	}
 
 	private static function populate(item:CompletionItem, resolvedFields:Dynamic):CompletionItem {
-		if (Reflect.hasField(resolvedFields, FIELD_LABEL)) {
-			item.label = Reflect.field(resolvedFields, FIELD_LABEL);
-		}
+		item.label = Reflect.field(resolvedFields, FIELD_LABEL);
 		if (Reflect.hasField(resolvedFields, FIELD_SORT_TEXT)) {
 			item.sortText = Reflect.field(resolvedFields, FIELD_SORT_TEXT);
 		}
@@ -202,16 +200,29 @@ class CompletionItem {
 			item.deprecated = Reflect.field(resolvedFields, FIELD_DEPRECATED) == true;
 		}
 		if (Reflect.hasField(resolvedFields, FIELD_COMMAND)) {
-			item.command = Command.parse(Reflect.field(resolvedFields, FIELD_COMMAND));
+			var commandField = Reflect.field(resolvedFields, FIELD_COMMAND);
+			if (commandField != null) {
+				item.command = Command.parse(commandField);
+			} else {
+				item.command = null;
+			}
 		}
+
 		if (Reflect.hasField(resolvedFields, FIELD_TEXT_EDIT)) {
-			item.textEdit = TextEdit.parse(Reflect.field(resolvedFields, FIELD_TEXT_EDIT));
+			var textEditField = Reflect.field(resolvedFields, FIELD_TEXT_EDIT);
+			if (textEditField != null) {
+				item.textEdit = TextEdit.parse(textEditField);
+			} else {
+				item.textEdit = null;
+			}
 		}
 		if (Reflect.hasField(resolvedFields, FIELD_ADDITIONAL_TEXT_EDITS)) {
 			var additionalTextEdits:Array<TextEdit> = [];
 			var jsonAdditionalTextEdits = Reflect.field(resolvedFields, FIELD_ADDITIONAL_TEXT_EDITS);
-			for (jsonTextEdit in cast(jsonAdditionalTextEdits, Array<Dynamic>)) {
-				additionalTextEdits.push(TextEdit.parse(jsonTextEdit));
+			if (jsonAdditionalTextEdits != null) {
+				for (jsonTextEdit in cast(jsonAdditionalTextEdits, Array<Dynamic>)) {
+					additionalTextEdits.push(TextEdit.parse(jsonTextEdit));
+				}
 			}
 			item.additionalTextEdits = additionalTextEdits;
 		}

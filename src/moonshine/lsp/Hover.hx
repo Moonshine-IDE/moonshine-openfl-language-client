@@ -46,7 +46,12 @@ class Hover {
 	public static function parse(original:Dynamic):Hover {
 		var vo = new Hover();
 		if (Reflect.hasField(original, FIELD_RANGE)) {
-			vo.range = Range.parse(Reflect.field(original, FIELD_RANGE));
+			var rangeField = Reflect.field(original, FIELD_RANGE);
+			if (rangeField != null) {
+				vo.range = Range.parse(rangeField);
+			} else {
+				vo.range = null;
+			}
 		}
 		if ((original.contents is String)) {
 			vo.contents = original.contents;
