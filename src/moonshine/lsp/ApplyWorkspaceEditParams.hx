@@ -28,6 +28,9 @@ package moonshine.lsp;
 **/
 @:structInit
 class ApplyWorkspaceEditParams {
+	private static final FIELD_LABEL:String = "label";
+	private static final FIELD_EDIT:String = "edit";
+
 	public function new(edit:Any, ?label:String) {
 		this.edit = edit;
 		this.label = label;
@@ -47,10 +50,10 @@ class ApplyWorkspaceEditParams {
 
 	public static function parse(jsonParams:Any):ApplyWorkspaceEditParams {
 		var label:String = null;
-		if (Reflect.hasField(jsonParams, "label")) {
-			label = Reflect.field(jsonParams, "label");
+		if (Reflect.hasField(jsonParams, FIELD_LABEL)) {
+			label = Reflect.field(jsonParams, FIELD_LABEL);
 		}
-		var edit = WorkspaceEdit.parse(Reflect.field(jsonParams, "edit"));
+		var edit = WorkspaceEdit.parse(Reflect.field(jsonParams, FIELD_EDIT));
 		return {
 			edit: edit,
 			label: label
