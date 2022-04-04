@@ -1206,6 +1206,9 @@ class LanguageClient extends EventDispatcher {
 	}
 
 	private function parseLocationOrLocationLink(result:Any):Any /* Location | LocationLink */ {
+		if (result == null) {
+			return null;
+		}
 		if (Reflect.hasField(result, FIELD_TARGET_URI)) {
 			var locationLink = LocationLink.parse(result);
 			if (!isValidUriScheme(locationLink.targetUri)) {
