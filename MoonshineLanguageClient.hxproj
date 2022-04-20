@@ -12,26 +12,26 @@
   </output>
   <classpaths></classpaths>
   <build>
-    <option additional="--macro openfl._internal.macros.ExtraParams.include()&amp;#xA;--macro lime._internal.macros.DefineMacro.run()&amp;#xA;--remap flash:openfl&amp;#xA;--no-output "/>
-    <option flashStrict="False"/>
-    <option enabledebug="False"/>
     <option mainClass=""/>
+    <option additional="--macro openfl._internal.macros.ExtraParams.include()&amp;#xA;--macro lime._internal.macros.DefineMacro.run()&amp;#xA;--remap flash:openfl&amp;#xA;--no-output "/>
     <option directives=""/>
+    <option enabledebug="False"/>
+    <option flashStrict="False"/>
     <option noInlineOnDebug="False"/>
   </build>
   <haxelib/>
   <compileTargets></compileTargets>
   <hiddenPaths></hiddenPaths>
   <preBuildCommand>"$(CompilerPath)/haxelib" run lime build "$(OutputFile)" $(TargetBuild) -$(BuildConfig) -Dfdb</preBuildCommand>
-  <postBuildCommand alwaysRun="False"></postBuildCommand>
+  <postBuildCommand alwaysRun="False"/>
   <options>
-    <option testMovie="Webserver"/>
     <option testMovieCommand=""/>
     <option showHiddenPaths="True"/>
+    <option testMovie="Webserver"/>
   </options>
   <moonshineRunCustomization>
-    <option targetPlatform="html5"/>
     <option webBrowser=""/>
+    <option targetPlatform="flash"/>
   </moonshineRunCustomization>
   <storage/>
 </project>
