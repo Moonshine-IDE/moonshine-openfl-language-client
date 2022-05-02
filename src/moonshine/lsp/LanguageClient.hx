@@ -245,6 +245,7 @@ class LanguageClient extends EventDispatcher {
 	private var _notificationListeners:Map<String, Array<(message:NotificationMessage) -> Void>> = [];
 	private var _uriSchemes:Array<String> = [];
 	private var _workspaceFolders:Array<WorkspaceFolder> = [];
+	private var _sentConfiguration:Bool = false;
 
 	/**
 		Sends an initialize request.
@@ -669,6 +670,10 @@ class LanguageClient extends EventDispatcher {
 			throw new IllegalOperationError("Notification failed. Language server is stopped. Unexpected method: " + method);
 		}
 
+		if (method == METHOD_WORKSPACE__DID_CHANGE_CONFIGURATION) {
+			_sentConfiguration = true;
+		}
+
 		var contentPart:NotificationMessage = {
 			jsonrpc: JSON_RPC_VERSION,
 			method: method,
@@ -849,9 +854,12 @@ class LanguageClient extends EventDispatcher {
 		var params:Any = {};
 		sendNotification(METHOD_INITIALIZED, params);
 
+		_sentConfiguration = false;
 		dispatchEvent(new Event(Event.INIT));
 
-		sendNotification(METHOD_WORKSPACE__DID_CHANGE_CONFIGURATION, {settings: {}});
+		if (!_sentConfiguration) {
+			sendNotification(METHOD_WORKSPACE__DID_CHANGE_CONFIGURATION, {settings: {}});
+		}
 	}
 
 	private function sendExit():Void {
