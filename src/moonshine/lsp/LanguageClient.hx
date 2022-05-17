@@ -724,6 +724,9 @@ class LanguageClient extends EventDispatcher {
 		if (!_initialized && method != METHOD_INITIALIZE) {
 			throw new IllegalOperationError("Request failed. Language server is not initialized. Unexpected method: " + method);
 		}
+		if (_stopped) {
+			throw new IllegalOperationError("Request failed. Language server is stopped. Unexpected method: " + method);
+		}
 
 		var id = getNextRequestID();
 		var contentPart:RequestMessage = {
@@ -779,6 +782,9 @@ class LanguageClient extends EventDispatcher {
 	private function sendResponse(id:Any, result:Any = null, error:Any = null):Void {
 		if (!_initialized) {
 			throw new IllegalOperationError("Response failed. Language server is not initialized.");
+		}
+		if (_stopped) {
+			throw new IllegalOperationError("Response failed. Language server is stopped. Response id: " + id);
 		}
 
 		var contentPart:ResponseMessage = {
