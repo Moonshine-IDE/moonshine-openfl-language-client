@@ -1,4 +1,4 @@
 -cmd haxelib run openfl build ../project.xml html5 -xml -clean
 
 --next
--cmd haxelib run dox -o ../bin/api -i ../bin/html5/types.xml -in moonshine.lsp --title "Language Client API Reference (Haxe/OpenFL)" --toplevel-package moonshine -D website "https://moonshine-ide.com" -D source-path "https://github.com/Moonshine-IDE/moonshine-openfl-language-client/tree/master/src/"
+-cmd haxelib run dox -o ../bin/api -i ../bin/html5/types.xml -in moonshine.lsp --title "Language Client for OpenFL API Reference" --toplevel-package moonshine.lsp -D website "https://moonshine-ide.com" -D source-path "https://github.com/Moonshine-IDE/moonshine-openfl-language-client/tree/master/src/"

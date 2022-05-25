@@ -4,10 +4,10 @@ An implementation of the [language server protocol](https://microsoft.github.io/
 
 This language client is written in [Haxe](https://haxe.org/) and targets the [OpenFL](https://openfl.org/) library.
 
-## Requirements
+## Minimum Requirements
 
-- Haxe v4.0
-- OpenFL v8.9.7
+- Haxe 4.0
+- OpenFL 8.9.7
 
 ## Installation
 
@@ -16,3 +16,7 @@ This library is not yet available on Haxelib. To install, run the following comm
 ```sh
 haxelib git moonshine-openfl-language-client https://github.com/Moonshine-IDE/moonshine-openfl-language-client.git
 ```
+
+## Documentation
+
+- [API Reference](https://moonshine-ide.github.io/moonshine-openfl-language-client/)
