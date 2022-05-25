@@ -17,6 +17,14 @@ This library is not yet available on Haxelib. To install, run the following comm
 haxelib git moonshine-openfl-language-client https://github.com/Moonshine-IDE/moonshine-openfl-language-client.git
 ```
 
+## Project Configuration
+
+After installing the library above, add it to your OpenFL _project.xml_ file:
+
+```xml
+<haxelib name="moonshine-openfl-language-client" />
+```
+
 ## Documentation
 
 - [API Reference](https://moonshine-ide.github.io/moonshine-openfl-language-client/)
