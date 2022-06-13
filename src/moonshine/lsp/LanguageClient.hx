@@ -697,21 +697,7 @@ class LanguageClient extends EventDispatcher {
 		}
 
 		try {
-			var remaining = message;
-			var remainingSize = remaining.length;
-			while (remainingSize > 0) {
-				// we break this up into smaller messages because the
-				// IDataOutput can be overwhelmed by larger messages and
-				// throw an error
-				var currentSize = WRITE_BUFFER_SIZE;
-				if (currentSize > remainingSize) {
-					currentSize = remainingSize;
-				}
-				var current = remaining.substr(0, currentSize);
-				remaining = remaining.substr(currentSize);
-				remainingSize -= currentSize;
-				_output.writeUTFBytes(current);
-			}
+			writeChunked(message);
 		} catch (e:Any) {
 			// if there's something wrong with the IDataOutput, we can't
 			// send a final shutdown request
@@ -762,7 +748,7 @@ class LanguageClient extends EventDispatcher {
 		}
 
 		try {
-			_output.writeUTFBytes(message);
+			writeChunked(message);
 		} catch (e:Any) {
 			// if we're already trying to shut down, don't do it again
 			if (method != METHOD_SHUTDOWN) {
@@ -821,7 +807,7 @@ class LanguageClient extends EventDispatcher {
 		}
 
 		try {
-			_output.writeUTFBytes(message);
+			writeChunked(message);
 		} catch (e:Any) {
 			// if there's something wrong with the IDataOutput, we can't
 			// send a final shutdown request
@@ -830,6 +816,24 @@ class LanguageClient extends EventDispatcher {
 		}
 		if (_outputFlushCallback != null) {
 			_outputFlushCallback();
+		}
+	}
+
+	private function writeChunked(message:String):Void {
+		var remaining = message;
+		var remainingSize = remaining.length;
+		while (remainingSize > 0) {
+			// we break this up into smaller messages because the
+			// IDataOutput can be overwhelmed by larger messages and
+			// throw an error
+			var currentSize = WRITE_BUFFER_SIZE;
+			if (currentSize > remainingSize) {
+				currentSize = remainingSize;
+			}
+			var current = remaining.substr(0, currentSize);
+			remaining = remaining.substr(currentSize);
+			remainingSize -= currentSize;
+			_output.writeUTFBytes(current);
 		}
 	}
 
