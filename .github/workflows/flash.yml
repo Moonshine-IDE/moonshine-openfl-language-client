@@ -13,7 +13,7 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
       - uses: krdlab/setup-haxe@v1
         with:
           haxe-version: 4.0.5
@@ -24,7 +24,7 @@ jobs:
           haxelib dev moonshine-openfl-language-client $GITHUB_WORKSPACE
       - name: Build Flash .swc library
         run: haxelib run openfl build flash -debug
-      - uses: actions/upload-artifact@v2
+      - uses: actions/upload-artifact@v3
         with:
           name: moonshine-openfl-language-client-flash
           path: |
