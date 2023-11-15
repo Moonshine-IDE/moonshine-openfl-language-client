@@ -26,8 +26,8 @@ package moonshine.lsp;
 
 	@see https://microsoft.github.io/language-server-protocol/specification#symbolTag
 **/
-@:enum
-abstract SymbolTag(Int) from Int to Int {
+#if haxe4 enum #else @:enum #end abstract SymbolTag(Int) from Int to Int {
+
 	/**
 		Render a symbol as obsolete, usually using a strike-out.
 	**/

@@ -26,8 +26,8 @@ package moonshine.lsp;
 	 
 	@see https://microsoft.github.io/language-server-protocol/specification#diagnostic
 **/
-@:enum
-abstract DiagnosticSeverity(Int) from Int to Int {
+#if haxe4 enum #else @:enum #end abstract DiagnosticSeverity(Int) from Int to Int {
+
 	/**
 		Reports an error.
 	**/

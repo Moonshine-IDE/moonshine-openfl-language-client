@@ -26,8 +26,8 @@ package moonshine.lsp;
 
 	@see https://microsoft.github.io/language-server-protocol/specification#markupContent
 **/
-@:enum
-abstract MarkupKind(String) from String to String {
+#if haxe4 enum #else @:enum #end abstract MarkupKind(String) from String to String {
+
 	/**
 		Plain text is supported as a content format
 	**/

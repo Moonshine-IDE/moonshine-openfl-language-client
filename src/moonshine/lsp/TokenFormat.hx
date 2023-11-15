@@ -26,8 +26,8 @@ package moonshine.lsp;
 
 	@see https://microsoft.github.io/language-server-protocol/specification#tokenFormat
 **/
-@:enum
-abstract TokenFormat(String) from String to String {
+#if haxe4 enum #else @:enum #end abstract TokenFormat(String) from String to String {
+
 	/**
 		Tokens are described using relative positions.
 	**/

@@ -26,8 +26,8 @@ package moonshine.lsp;
 
 	@see https://microsoft.github.io/language-server-protocol/specification#workspace_didChangeWatchedFiles
 **/
-@:enum
-abstract FileChangeType(UInt) from UInt to UInt {
+#if haxe4 enum #else @:enum #end abstract FileChangeType(UInt) from UInt to UInt {
+
 	var Created = 1;
 	var Changed = 2;
 	var Deleted = 3;

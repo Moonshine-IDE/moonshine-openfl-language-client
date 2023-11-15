@@ -26,8 +26,8 @@ package moonshine.lsp;
 
 	@see https://microsoft.github.io/language-server-protocol/specification#traceValue
 **/
-@:enum
-abstract TraceValue(String) from String to String {
+#if haxe4 enum #else @:enum #end abstract TraceValue(String) from String to String {
+
 	/**
 		Turn off $/logTrace notifications
 	**/

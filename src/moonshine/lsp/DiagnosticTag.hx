@@ -26,8 +26,8 @@ package moonshine.lsp;
 
 	@see https://microsoft.github.io/language-server-protocol/specification#diagnosticTag
 **/
-@:enum
-abstract DiagnosticTag(Int) from Int to Int {
+#if haxe4 enum #else @:enum #end abstract DiagnosticTag(Int) from Int to Int {
+
 	/**
 		Unused or unnecessary code.
 

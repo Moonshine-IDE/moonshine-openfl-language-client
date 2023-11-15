@@ -26,8 +26,8 @@ package moonshine.lsp;
 
 	@see https://microsoft.github.io/language-server-protocol/specification#textDocument_signatureHelp
 **/
-@:enum
-abstract SignatureHelpTriggerKind(Int) from Int to Int {
+#if haxe4 enum #else @:enum #end abstract SignatureHelpTriggerKind(Int) from Int to Int {
+
 	/**
 		Signature help was invoked manually by the user or by a command.
 	**/

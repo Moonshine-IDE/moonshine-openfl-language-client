@@ -26,8 +26,8 @@ package moonshine.lsp;
 
 	@see https://microsoft.github.io/language-server-protocol/specification#insertTextMode
 **/
-@:enum
-abstract InsertTextMode(Int) from Int to Int {
+#if haxe4 enum #else @:enum #end abstract InsertTextMode(Int) from Int to Int {
+
 	/**
 		The insertion or replace strings is taken as it is. If the
 		value is multi line the lines below the cursor will be

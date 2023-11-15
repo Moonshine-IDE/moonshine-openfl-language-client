@@ -26,8 +26,8 @@ package moonshine.lsp;
 
 	@see https://microsoft.github.io/language-server-protocol/specification#prepareSupportDefaultBehavior
 **/
-@:enum
-abstract PrepareSupportDefaultBehavior(Int) from Int to Int {
+#if haxe4 enum #else @:enum #end abstract PrepareSupportDefaultBehavior(Int) from Int to Int {
+
 	/**
 		The client's default behavior is to select the identifier according the
 		to language's syntax rule.

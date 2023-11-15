@@ -26,8 +26,8 @@ package moonshine.lsp;
 
 	@see https://microsoft.github.io/language-server-protocol/specification#textDocument_codeAction
 **/
-@:enum
-abstract CodeActionKind(String) from String to String {
+#if haxe4 enum #else @:enum #end abstract CodeActionKind(String) from String to String {
+
 	/**
 		Empty kind.
 	**/

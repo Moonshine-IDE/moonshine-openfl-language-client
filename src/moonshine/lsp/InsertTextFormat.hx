@@ -26,8 +26,8 @@ package moonshine.lsp;
 
 	@see https://microsoft.github.io/language-server-protocol/specification#textDocument_completion
 **/
-@:enum
-abstract InsertTextFormat(Int) from Int to Int {
+#if haxe4 enum #else @:enum #end abstract InsertTextFormat(Int) from Int to Int {
+
 	/**
 		The primary text to be inserted is treated as a plain string.
 	**/

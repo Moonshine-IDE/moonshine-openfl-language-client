@@ -26,8 +26,8 @@ package moonshine.lsp;
 
 	@see https://microsoft.github.io/language-server-protocol/specification#completionItemTag
 **/
-@:enum
-abstract CompletionItemTag(Int) from Int to Int {
+#if haxe4 enum #else @:enum #end abstract CompletionItemTag(Int) from Int to Int {
+
 	/**
 		Render a completion as obsolete, usually using a strike-out.
 	**/

@@ -26,8 +26,8 @@ package moonshine.lsp;
 
 	@see https://microsoft.github.io/language-server-protocol/specification#resourceOperationKind
 **/
-@:enum
-abstract ResourceOperationKind(String) from String to String {
+#if haxe4 enum #else @:enum #end abstract ResourceOperationKind(String) from String to String {
+
 	/**
 		Supports creating new files and folders.
 	**/

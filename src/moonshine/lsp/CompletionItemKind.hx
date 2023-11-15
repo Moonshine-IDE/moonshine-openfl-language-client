@@ -27,8 +27,8 @@ package moonshine.lsp;
 	@see https://microsoft.github.io/language-server-protocol/specification#textDocument_completion
 	@see https://microsoft.github.io/language-server-protocol/specification#completionItem_resolve
 **/
-@:enum
-abstract CompletionItemKind(Int) from Int to Int {
+#if haxe4 enum #else @:enum #end abstract CompletionItemKind(Int) from Int to Int {
+
 	var Text = 1;
 	var Method = 2;
 	var Function = 3;

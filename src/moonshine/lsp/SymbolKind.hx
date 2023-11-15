@@ -27,8 +27,8 @@ package moonshine.lsp;
 	@see https://microsoft.github.io/language-server-protocol/specification#textDocument_documentSymbol
 	@see https://microsoft.github.io/language-server-protocol/specification#workspace_symbol
 **/
-@:enum
-abstract SymbolKind(Int) from Int to Int {
+#if haxe4 enum #else @:enum #end abstract SymbolKind(Int) from Int to Int {
+
 	var File = 1;
 	var Module = 2;
 	var Namespace = 3;

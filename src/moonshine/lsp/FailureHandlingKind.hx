@@ -26,8 +26,8 @@ package moonshine.lsp;
 
 	@see https://microsoft.github.io/language-server-protocol/specification#failureHandlingKind
 **/
-@:enum
-abstract FailureHandlingKind(String) from String to String {
+#if haxe4 enum #else @:enum #end abstract FailureHandlingKind(String) from String to String {
+
 	/**
 		Applying the workspace change is simply aborted if one of the changes
 		provided fails. All operations executed before the failing operation

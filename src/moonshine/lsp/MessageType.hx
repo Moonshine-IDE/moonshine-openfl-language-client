@@ -26,8 +26,8 @@ package moonshine.lsp;
 
 	@see https://microsoft.github.io/language-server-protocol/specification#window_showMessage
 **/
-@:enum
-abstract MessageType(Int) from Int to Int {
+#if haxe4 enum #else @:enum #end abstract MessageType(Int) from Int to Int {
+
 	/**
 		An error message.
 	**/

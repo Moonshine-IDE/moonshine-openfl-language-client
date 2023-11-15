@@ -26,8 +26,8 @@ package moonshine.lsp;
 
 	@see https://microsoft.github.io/language-server-protocol/specification#textDocument_willSave
 **/
-@:enum
-abstract TextDocumentSaveReason(Int) from Int to Int {
+#if haxe4 enum #else @:enum #end abstract TextDocumentSaveReason(Int) from Int to Int {
+
 	/**
 		Manually triggered, e.g. by the user pressing save, by starting
 		debugging, or by an API call.

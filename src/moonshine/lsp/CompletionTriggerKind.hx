@@ -26,8 +26,8 @@ package moonshine.lsp;
 
 	@see https://microsoft.github.io/language-server-protocol/specification#textDocument_completion
 **/
-@:enum
-abstract CompletionTriggerKind(Int) from Int to Int {
+#if haxe4 enum #else @:enum #end abstract CompletionTriggerKind(Int) from Int to Int {
+
 	/**
 		Completion was triggered by typing an identifier (24x7 code complete),
 		manual invocation (e.g Ctrl+Space) or via API.
