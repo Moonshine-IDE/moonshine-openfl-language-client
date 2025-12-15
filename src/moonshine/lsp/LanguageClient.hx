@@ -1564,6 +1564,10 @@ class LanguageClient extends EventDispatcher {
 	private function window__workDoneProgress__create(jsonObject:Dynamic):Void {}
 
 	private function languageClient_input_onData(event:Event):Void {
+		if (_input.bytesAvailable == 0) {
+			// standardOutput may have been closed
+			return;
+		}
 		_socketBuffer += _input.readUTFBytes(_input.bytesAvailable);
 		parseMessageBuffer();
 	}
